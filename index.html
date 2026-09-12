@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function(){
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    } catch (e) {}
+  })();
+</script>
 <title>Ahmad Alshakhshir — Flutter Developer</title>
 <meta name="description" content="Ahmad Alshakhshir — Computer Science graduate and Flutter developer building mobile apps and full-stack products, from the Able+ accessibility platform to real client work.">
 
@@ -30,31 +38,49 @@
   :root{
     --bg:#120e0a;
     --bg-soft:#1b1512;
+    --header-bg:rgba(18,14,10,0.85);
     --cream:#f3ecdf;
     --cream-2:#e9dfcb;
     --paper:#faf6ee;
     --ink:#201a14;
+    --text:#f3ecdf;
+    --text-soft:#e9dfcb;
+    --heading:#faf6ee;
     --muted:#b8a98c;
     --muted-2:#7a6e58;
     --accent:#f2a93b;
     --accent-dark:#c9791e;
     --line:rgba(243,236,223,0.12);
+    --tag-bg:rgba(243,236,223,0.06);
     --radius:22px;
     --maxw:1140px;
+  }
+
+  :root[data-theme="light"]{
+    --bg:#f5efe2;
+    --bg-soft:#eae0cb;
+    --header-bg:rgba(245,239,226,0.85);
+    --text:#201a14;
+    --text-soft:#4a4030;
+    --heading:#120e0a;
+    --muted:#6b5f4a;
+    --line:rgba(32,26,20,0.14);
+    --tag-bg:rgba(32,26,20,0.05);
   }
 
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     background:var(--bg);
-    color:var(--cream);
+    color:var(--text);
     font-family:'Inter',sans-serif;
     line-height:1.6;
     overflow-x:hidden;
+    transition:background .3s ease, color .3s ease;
   }
   h1,h2,h3,h4,.display{
     font-family:'Outfit',sans-serif;
-    color:var(--paper);
+    color:var(--heading);
     line-height:1.1;
     letter-spacing:-0.02em;
   }
@@ -79,13 +105,14 @@
     border-bottom:1px solid transparent;
   }
   header.scrolled{
-    background:rgba(18,14,10,0.85);
+    background:var(--header-bg);
     backdrop-filter:blur(14px);
     padding:14px 0;
     border-color:var(--line);
   }
   nav.wrap{display:flex;align-items:center;justify-content:space-between;}
-  .logo{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.3rem;color:var(--paper);}
+  .nav-right{display:flex;align-items:center;}
+  .logo{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.3rem;color:var(--heading);}
   .logo span{color:var(--accent);}
   .nav-links{display:flex;gap:34px;align-items:center;}
   .nav-links a{
@@ -96,7 +123,7 @@
     content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;
     background:var(--accent);transition:width .3s ease;
   }
-  .nav-links a:hover{color:var(--paper);}
+  .nav-links a:hover{color:var(--heading);}
   .nav-links a:hover::after{width:100%;}
   .nav-cta{
     background:var(--accent);color:var(--ink) !important;
@@ -104,7 +131,17 @@
     transition:transform .25s ease, background .25s ease;
   }
   .nav-cta:hover{background:#ffbf5c;transform:translateY(-2px);}
-  .burger{display:none;background:none;border:none;color:var(--paper);font-size:1.6rem;cursor:pointer;}
+  .theme-toggle{
+    width:38px;height:38px;border-radius:10px;margin-left:14px;
+    background:var(--bg-soft);border:1px solid var(--line);color:var(--heading);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:border-color .25s ease, color .25s ease, transform .25s ease;
+  }
+  .theme-toggle:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
+  .theme-toggle .icon-sun{display:none;}
+  :root[data-theme="light"] .theme-toggle .icon-moon{display:none;}
+  :root[data-theme="light"] .theme-toggle .icon-sun{display:block;}
+  .burger{display:none;background:none;border:none;color:var(--heading);font-size:1.6rem;cursor:pointer;margin-left:10px;}
   .nav-overlay{display:none;}
   @media (max-width:720px){
     .nav-overlay{
@@ -150,7 +187,7 @@
   .hero h1 .name-accent{color:var(--accent);}
   .role-line{
     font-size:clamp(1.15rem,2vw,1.4rem);
-    color:var(--cream-2);
+    color:var(--text-soft);
     margin-bottom:26px;
     min-height:2.2rem;
     display:flex;align-items:center;gap:10px;
@@ -170,15 +207,16 @@
     padding:15px 28px;border-radius:999px;font-weight:600;font-size:0.95rem;
     transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
     border:1px solid transparent;
+    font-family:inherit;cursor:pointer;
   }
   .btn-primary{background:var(--accent);color:var(--ink);}
   .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 30px -12px rgba(242,169,59,0.55);}
-  .btn-ghost{border-color:var(--line);color:var(--cream);}
+  .btn-ghost{border-color:var(--line);color:var(--text);}
   .btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);}
 
   .stats-row{display:flex;gap:44px;flex-wrap:wrap;}
   .stat b{
-    display:block;font-family:'Outfit',sans-serif;font-size:2rem;color:var(--paper);font-weight:700;
+    display:block;font-family:'Outfit',sans-serif;font-size:2rem;color:var(--heading);font-weight:700;
   }
   .stat span{font-size:0.85rem;color:var(--muted);}
 
@@ -243,7 +281,7 @@
   }
   .quote-panel h3{font-size:1.3rem;margin-bottom:16px;}
   .quote-panel ul{display:flex;flex-direction:column;gap:16px;}
-  .quote-panel li{display:flex;gap:12px;align-items:flex-start;color:var(--cream-2);font-size:0.98rem;}
+  .quote-panel li{display:flex;gap:12px;align-items:flex-start;color:var(--text-soft);font-size:0.98rem;}
   .quote-panel li::before{content:'—';color:var(--accent);font-weight:700;}
 
   .skills-grid{
@@ -258,9 +296,14 @@
   .skill-icon{
     width:46px;height:46px;border-radius:12px;margin:0 auto 14px;
     display:flex;align-items:center;justify-content:center;
-    font-family:'Outfit',sans-serif;font-weight:700;color:#14100d;font-size:1.05rem;
   }
-  .skill-card span{font-size:0.9rem;color:var(--cream-2);font-weight:500;}
+  .skill-icon svg{width:24px;height:24px;fill:#14100d;flex-shrink:0;}
+  .skill-icon.dual{gap:6px;background:none !important;width:auto;}
+  .skill-icon.dual span{
+    width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  }
+  .skill-icon.dual svg{width:19px;height:19px;}
+  .skill-card span{font-size:0.9rem;color:var(--text-soft);font-weight:500;}
   .skill-card small{display:block;font-size:0.72rem;color:var(--muted-2);margin-top:3px;}
 
   .projects-list{display:flex;flex-direction:column;gap:26px;}
@@ -287,9 +330,9 @@
   .tag-row{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px;}
   .tag{
     font-size:0.78rem;padding:6px 13px;border-radius:999px;
-    background:rgba(243,236,223,0.06);border:1px solid var(--line);color:var(--cream-2);
+    background:var(--tag-bg);border:1px solid var(--line);color:var(--text-soft);
   }
-  .project-link{font-weight:600;color:var(--paper);font-size:0.92rem;display:inline-flex;align-items:center;gap:8px;}
+  .project-link{font-weight:600;color:var(--heading);font-size:0.92rem;display:inline-flex;align-items:center;gap:8px;}
   .project-link svg{transition:transform .25s ease;}
   .project-link:hover{color:var(--accent);}
   .project-link:hover svg{transform:translate(4px,-4px);}
@@ -304,7 +347,7 @@
   .mini-card h4{font-size:1.15rem;margin-bottom:10px;}
   .mini-card p{color:var(--muted);font-size:0.92rem;margin-bottom:16px;}
   .mini-links{display:flex;gap:16px;flex-wrap:wrap;}
-  .mini-link{font-weight:600;color:var(--paper);font-size:0.86rem;display:inline-flex;align-items:center;gap:6px;}
+  .mini-link{font-weight:600;color:var(--heading);font-size:0.86rem;display:inline-flex;align-items:center;gap:6px;}
   .mini-link:hover{color:var(--accent);}
 
   .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
@@ -339,19 +382,28 @@
   .t-item h4{font-size:1.15rem;}
   .t-item p{color:var(--muted);font-size:0.95rem;max-width:56ch;}
 
+  .cta-section{padding:0 0 120px;}
+  .cta-banner{
+    background:linear-gradient(150deg, var(--bg-soft), var(--bg));
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:60px 40px;text-align:center;
+    display:flex;flex-direction:column;align-items:center;gap:18px;
+  }
+  .cta-banner h3{font-size:clamp(1.6rem,3vw,2.2rem);}
+  .cta-banner p{color:var(--muted);max-width:48ch;font-size:1.02rem;}
+
   .contact-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:50px;}
   .contact-info h2{font-size:clamp(2rem,3.4vw,2.6rem);margin-bottom:18px;}
   .contact-info p{color:var(--muted);margin-bottom:30px;max-width:44ch;}
-  .contact-links{display:flex;flex-direction:column;gap:16px;}
+  .contact-links{display:flex;flex-wrap:wrap;gap:16px;}
   .contact-links a{
-    display:flex;align-items:center;gap:14px;font-size:1rem;color:var(--cream);
-    padding-bottom:14px;border-bottom:1px solid var(--line);transition:color .25s ease, padding-left .25s ease;
+    width:58px;height:58px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--bg-soft);border:1px solid var(--line);color:var(--text);
+    transition:color .25s ease, border-color .25s ease, transform .25s ease, background .25s ease;
   }
-  .contact-links a:hover{color:var(--accent);padding-left:8px;}
-  .icon-box{
-    width:38px;height:38px;border-radius:10px;background:var(--bg-soft);border:1px solid var(--line);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  }
+  .contact-links a:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-4px);background:#221a13;}
+  .contact-links a svg{width:22px;height:22px;}
   form{background:var(--cream);border-radius:var(--radius);padding:38px;color:var(--ink);}
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
   form label{display:block;font-size:0.82rem;font-weight:600;margin-bottom:6px;color:#4a4030;}
@@ -419,15 +471,21 @@
 <header id="siteHeader">
   <nav class="wrap">
     <div class="logo">Ahmad<span>.</span></div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#certificates">Certificates</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact" class="nav-cta">Contact</a></li>
-    </ul>
-    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M4.22 4.22l1.77 1.77M18 18l1.78 1.78M2 12h2.5M19.5 12H22M4.22 19.78L6 18M18 6l1.78-1.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+    </div>
   </nav>
   <div class="nav-overlay" id="navOverlay"></div>
 </header>
@@ -467,7 +525,7 @@
           <img src="ahmad-photo.png" alt="Ahmad Alshakhshir" id="avatarImg" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'avatar-fallback', textContent:'AA'}))">
         </div>
         <div class="badge-float b1"><span class="ic"></span> Flutter Developer</div>
-        <div class="badge-float b2"><span class="ic"></span> CS Graduate — ASU</div>
+        <div class="badge-float b2"><span class="ic"></span> ASP.NET Developer</div>
       </div>
     </div>
   </div>
@@ -510,14 +568,57 @@
       <p>The stack I use to build applications from a blank file to production.</p>
     </div>
     <div class="skills-grid">
-      <div class="skill-card reveal"><div class="skill-icon" style="background:#54C5F8;">Fl</div><span>Flutter</span><small>Mobile</small></div>
-      <div class="skill-card reveal"><div class="skill-icon" style="background:#13B9FD;">Da</div><span>Dart</span><small>Mobile</small></div>
-      <div class="skill-card reveal"><div class="skill-icon" style="background:#3ECF8E;">Sb</div><span>Supabase</span><small>Database</small></div>
-      <div class="skill-card reveal"><div class="skill-icon" style="background:#F2A93B;">Sq</div><span>SQL</span><small>Database Design</small></div>
-      <div class="skill-card reveal"><div class="skill-icon" style="background:#7C4DFF;">As</div><span>ASP.NET</span><small>Web</small></div>
-      <div class="skill-card reveal"><div class="skill-icon" style="background:#FF7043;">Hc</div><span>HTML &amp; CSS</span><small>Web</small></div>
-      <div class="skill-card reveal"><div class="skill-icon" style="background:#FFCA28;">Jv</div><span>Java &amp; C++</span><small>Programming</small></div>
-      <div class="skill-card reveal"><div class="skill-icon" style="background:#8BC34A;">Gt</div><span>Git &amp; GitHub</span><small>Tools</small></div>
+      <div class="skill-card reveal">
+        <div class="skill-icon" style="background:#54C5F8;">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#14100d" d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.37z"/></svg>
+        </div>
+        <span>Flutter</span><small>Mobile</small>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon" style="background:#13B9FD;">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#14100d" d="M4.105 4.105S9.158 1.58 11.684.316a3.079 3.079 0 0 1 1.481-.315c.766.047 1.677.788 1.677.788L24 9.948v9.789h-4.263V24H9.789l-9-9C.303 14.5 0 13.795 0 13.105c0-.319.18-.818.316-1.105l3.789-7.895zm.679.679v11.787c.002.543.021 1.024.498 1.508L10.204 23h8.533v-4.263L4.784 4.784zm12.055-.678c-.899-.896-1.809-1.78-2.74-2.643-.302-.267-.567-.468-1.07-.462-.37.014-.87.195-.87.195L6.341 4.105l10.498.001z"/></svg>
+        </div>
+        <span>Dart</span><small>Mobile</small>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon" style="background:#3ECF8E;">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#14100d" d="M11.9 1.036c-.015-.986-1.26-1.41-1.874-.637L.764 12.05C-.33 13.427.65 15.455 2.409 15.455h9.579l.113 7.51c.014.985 1.259 1.408 1.873.636l9.262-11.653c1.093-1.375.113-3.403-1.645-3.403h-9.642z"/></svg>
+        </div>
+        <span>Supabase</span><small>Database</small>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon" style="background:#F2A93B;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#14100d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <span>SQL</span><small>Database Design</small>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon" style="background:#7C4DFF;">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#14100d" d="M24 8.77h-2.468v7.565h-1.425V8.77h-2.462V7.53H24zm-6.852 7.565h-4.821V7.53h4.63v1.24h-3.205v2.494h2.953v1.234h-2.953v2.604h3.396zm-6.708 0H8.882L4.78 9.863a2.896 2.896 0 0 1-.258-.51h-.036c.032.189.048.592.048 1.21v5.772H3.157V7.53h1.659l3.965 6.32c.167.261.275.442.323.54h.024c-.04-.233-.06-.629-.06-1.185V7.529h1.372zm-8.703-.693a.868.829 0 0 1-.869.829.868.829 0 0 1-.868-.83.868.829 0 0 1 .868-.828.868.829 0 0 1 .869.829Z"/></svg>
+        </div>
+        <span>ASP.NET</span><small>Web</small>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon dual">
+          <span style="background:#E44D26;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg></span>
+          <span style="background:#1572B6;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M0 0v20.16A3.84 3.84 0 0 0 3.84 24h16.32A3.84 3.84 0 0 0 24 20.16V3.84A3.84 3.84 0 0 0 20.16 0Zm14.256 13.08c1.56 0 2.28 1.08 2.304 2.64h-1.608c.024-.288-.048-.6-.144-.84-.096-.192-.288-.264-.552-.264-.456 0-.696.264-.696.84-.024.576.288.888.768 1.08.72.288 1.608.744 1.92 1.296q.432.648.432 1.656c0 1.608-.912 2.592-2.496 2.592-1.656 0-2.4-1.032-2.424-2.688h1.68c0 .792.264 1.176.792 1.176.264 0 .456-.072.552-.24.192-.312.24-1.176-.048-1.512-.312-.408-.912-.6-1.32-.816q-.828-.396-1.224-.936c-.24-.36-.36-.888-.36-1.536 0-1.44.936-2.472 2.424-2.448m5.4 0c1.584 0 2.304 1.08 2.328 2.64h-1.608c0-.288-.048-.6-.168-.84-.096-.192-.264-.264-.528-.264-.48 0-.72.264-.72.84s.288.888.792 1.08c.696.288 1.608.744 1.92 1.296.264.432.408.984.408 1.656.024 1.608-.888 2.592-2.472 2.592-1.68 0-2.424-1.056-2.448-2.688h1.68c0 .744.264 1.176.792 1.176.264 0 .456-.072.552-.24.216-.312.264-1.176-.048-1.512-.288-.408-.888-.6-1.32-.816-.552-.264-.96-.576-1.2-.936s-.36-.888-.36-1.536c-.024-1.44.912-2.472 2.4-2.448m-11.031.018c.711-.006 1.419.198 1.839.63.432.432.672 1.128.648 1.992H9.336c.024-.456-.096-.792-.432-.96-.312-.144-.768-.048-.888.24-.12.264-.192.576-.168.864v3.504c0 .744.264 1.128.768 1.128a.65.65 0 0 0 .552-.264c.168-.24.192-.552.168-.84h1.776c.096 1.632-.984 2.712-2.568 2.688-1.536 0-2.496-.864-2.472-2.472v-4.032c0-.816.24-1.44.696-1.848.432-.408 1.146-.624 1.857-.63"/></svg></span>
+        </div>
+        <span>HTML &amp; CSS</span><small>Web</small>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon dual">
+          <span style="background:#f89820;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#14100d" d="M11.915 0 11.7.215C9.515 2.4 7.47 6.39 6.046 10.483c-1.064 1.024-3.633 2.81-3.711 3.551-.093.87 1.746 2.611 1.55 3.235-.198.625-1.304 1.408-1.014 1.939.1.188.823.011 1.277-.491a13.389 13.389 0 0 0-.017 2.14c.076.906.27 1.668.643 2.232.372.563.956.911 1.667.911.397 0 .727-.114 1.024-.264.298-.149.571-.33.91-.5.68-.34 1.634-.666 3.53-.604 1.903.062 2.872.39 3.559.704.687.314 1.15.664 1.925.664.767 0 1.395-.336 1.807-.9.412-.563.631-1.33.72-2.24.06-.623.055-1.32 0-2.066.454.45 1.117.604 1.213.424.29-.53-.816-1.314-1.013-1.937-.198-.624 1.642-2.366 1.549-3.236-.08-.748-2.707-2.568-3.748-3.586C16.428 6.374 14.308 2.394 12.13.215zm.175 6.038a2.95 2.95 0 0 1 2.943 2.942 2.95 2.95 0 0 1-2.943 2.943A2.95 2.95 0 0 1 9.148 8.98a2.95 2.95 0 0 1 2.942-2.942zM8.685 7.983a3.515 3.515 0 0 0-.145.997c0 1.951 1.6 3.55 3.55 3.55 1.95 0 3.55-1.598 3.55-3.55 0-.329-.046-.648-.132-.951.334.095.64.208.915.336a42.699 42.699 0 0 1 2.042 5.829c.678 2.545 1.01 4.92.846 6.607-.082.844-.29 1.51-.606 1.94-.315.431-.713.651-1.315.651-.593 0-.932-.27-1.673-.61-.741-.338-1.825-.694-3.792-.758-1.974-.064-3.073.293-3.821.669-.375.188-.659.373-.911.5s-.466.2-.752.2c-.53 0-.876-.209-1.16-.64-.285-.43-.474-1.101-.545-1.948-.141-1.693.176-4.069.823-6.614a43.155 43.155 0 0 1 1.934-5.783c.348-.167.749-.31 1.192-.425zm-3.382 4.362a.216.216 0 0 1 .13.031c-.166.56-.323 1.116-.463 1.665a33.849 33.849 0 0 0-.547 2.555 3.9 3.9 0 0 0-.2-.39c-.58-1.012-.914-1.642-1.16-2.08.315-.24 1.679-1.755 2.24-1.781zm13.394.01c.562.027 1.926 1.543 2.24 1.783-.246.438-.58 1.068-1.16 2.08a4.428 4.428 0 0 0-.163.309 32.354 32.354 0 0 0-.562-2.49 40.579 40.579 0 0 0-.482-1.652.216.216 0 0 1 .127-.03z"/></svg></span>
+          <span style="background:#00599C;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91zM12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.11-7.11a7.133 7.133 0 016.156 3.553l-3.076 1.78a3.567 3.567 0 00-3.08-1.78A3.56 3.56 0 008.444 12 3.56 3.56 0 0012 15.555a3.57 3.57 0 003.08-1.778l3.078 1.78A7.135 7.135 0 0112 19.11zm7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z"/></svg></span>
+        </div>
+        <span>Java &amp; C++</span><small>Programming</small>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon dual">
+          <span style="background:#F05033;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M13.09 23.549a1.54 1.54 0 0 1-2.18 0L.451 13.089a1.54 1.54 0 0 1 0-2.179l7.191-7.19 2.733 2.733a1.85 1.85 0 0 0 .964 2.326v6.66a1.849 1.849 0 1 0 1.54 0V8.957l2.508 2.508a1.85 1.85 0 1 0 1.09-1.09l-2.634-2.634a1.85 1.85 0 0 0-2.378-2.377L8.73 2.63 10.91.451a1.54 1.54 0 0 1 2.179 0l10.459 10.46a1.54 1.54 0 0 1 0 2.179z"/></svg></span>
+          <span style="background:#181717;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span>
+        </div>
+        <span>Git &amp; GitHub</span><small>Tools</small>
+      </div>
     </div>
   </div>
 </section>
@@ -728,37 +829,36 @@
   </div>
 </section>
 
+<section class="cta-section">
+  <div class="wrap">
+    <div class="cta-banner reveal">
+      <h3>Have a project in mind?</h3>
+      <p>I'm open to internships, full-time roles, and freelance work — let's build something together.</p>
+      <a href="#contact" class="btn btn-primary">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
 <section class="section-pad" id="contact">
   <div class="wrap contact-grid">
     <div class="contact-info reveal">
       <h2>Let's <span style="color:var(--accent)">connect</span></h2>
       <p>Have a project idea, an internship or job opportunity, or just want to talk Flutter? Reach out directly.</p>
       <div class="contact-links">
-        <a href="https://www.linkedin.com/in/ahmad-alshakhshir-2a911a2aas" target="_blank" rel="noopener">
-          <span class="icon-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.25h4.5V23H.24V8.25zM8.5 8.25h4.31v2.02h.06c.6-1.14 2.08-2.34 4.28-2.34 4.58 0 5.43 3.02 5.43 6.94V23h-4.5v-6.89c0-1.64-.03-3.75-2.29-3.75-2.29 0-2.64 1.79-2.64 3.63V23H8.5V8.25z" fill="currentColor"/></svg>
-          </span>
-          linkedin.com/in/ahmad-alshakhshir
+        <a href="https://www.linkedin.com/in/ahmad-alshakhshir-2a911a2aas" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.25h4.5V23H.24V8.25zM8.5 8.25h4.31v2.02h.06c.6-1.14 2.08-2.34 4.28-2.34 4.58 0 5.43 3.02 5.43 6.94V23h-4.5v-6.89c0-1.64-.03-3.75-2.29-3.75-2.29 0-2.64 1.79-2.64 3.63V23H8.5V8.25z" fill="currentColor"/></svg>
         </a>
-        <a href="https://github.com/alshaksherahmad857-commits?tab=repositories" target="_blank" rel="noopener">
-          <span class="icon-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.22-3.37-1.22-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.05a9.29 9.29 0 015 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0022 12.25C22 6.58 17.52 2 12 2z" fill="currentColor"/></svg>
-          </span>
-          github.com/alshaksherahmad857-commits
+        <a href="https://github.com/alshaksherahmad857-commits?tab=repositories" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.22-3.37-1.22-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.05a9.29 9.29 0 015 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0022 12.25C22 6.58 17.52 2 12 2z" fill="currentColor"/></svg>
         </a>
-        <a href="mailto:alshaksherahmad857@gmail.com">
-          <span class="icon-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6l9 7 9-7M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          alshaksherahmad857@gmail.com
+        <a href="mailto:alshaksherahmad857@gmail.com" aria-label="Email" title="Email">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 6l9 7 9-7M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a href="tel:+962790293429">
-          <span class="icon-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          +962 79 029 3429
+        <a href="tel:+962790293429" aria-label="Phone" title="Phone">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
+      <p style="color:var(--muted);font-size:0.85rem;margin-top:16px;">alshaksherahmad857@gmail.com · +962 79 029 3429</p>
     </div>
 
     <form id="contactForm" novalidate>
@@ -794,6 +894,18 @@
   const header = document.getElementById('siteHeader');
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', () => {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if (isLight) {
+      document.documentElement.removeAttribute('data-theme');
+      try { localStorage.setItem('theme', 'dark'); } catch (e) {}
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      try { localStorage.setItem('theme', 'light'); } catch (e) {}
+    }
   });
 
   const burger = document.getElementById('burger');
