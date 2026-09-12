@@ -88,7 +88,16 @@
   ul{list-style:none;}
   img{max-width:100%;display:block;}
   section{position:relative;}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  section.section-pad{overflow:hidden;}
+  .section-glow{
+    position:absolute;width:560px;height:560px;border-radius:50%;
+    filter:blur(70px);pointer-events:none;z-index:0;opacity:0.55;
+  }
+  .section-glow.left{left:-180px;}
+  .section-glow.right{right:-180px;}
+  .section-glow.top{top:-160px;}
+  .section-glow.bottom{bottom:-160px;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;position:relative;z-index:1;}
   ::selection{background:var(--accent);color:var(--ink);}
 
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease, transform .8s ease;}
@@ -558,6 +567,8 @@
 </section>
 
 <section class="section-pad" id="about">
+  <div class="section-glow right top" style="background:radial-gradient(circle, rgba(242,169,59,0.3), transparent 70%);"></div>
+  <div class="section-glow left bottom" style="background:radial-gradient(circle, rgba(124,77,255,0.22), transparent 70%);"></div>
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Who is <span class="hi">Ahmad?</span></h2>
@@ -822,6 +833,7 @@
 </section>
 
 <section class="section-pad" id="certificates" style="background:var(--bg-soft)">
+  <div class="section-glow left top" style="background:radial-gradient(circle, rgba(62,207,142,0.22), transparent 70%);"></div>
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Courses &amp; <span class="hi">Certificates</span></h2>
@@ -869,6 +881,7 @@
 </section>
 
 <section class="section-pad" id="experience">
+  <div class="section-glow right bottom" style="background:radial-gradient(circle, rgba(124,77,255,0.22), transparent 70%);"></div>
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Academic &amp; <span class="hi">Training Path</span></h2>
