@@ -21,14 +21,14 @@
 <meta property="og:url" content="https://alshaksherahmad857-commits.github.io/portfolio/">
 <meta property="og:title" content="Ahmad Alshakhshir — Flutter Developer">
 <meta property="og:description" content="Computer Science graduate building Flutter apps and full-stack products that solve real problems — from Able+ to real client work.">
-<meta property="og:image" content="https://alshaksherahmad857-commits.github.io/portfolio/og-image.png">
+<meta property="og:image" content="https://alshaksherahmad857-commits.github.io/portfolio/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ahmad Alshakhshir — Flutter Developer">
 <meta name="twitter:description" content="Computer Science graduate building Flutter apps and full-stack products that solve real problems.">
-<meta name="twitter:image" content="https://alshaksherahmad857-commits.github.io/portfolio/og-image.png">
+<meta name="twitter:image" content="https://alshaksherahmad857-commits.github.io/portfolio/og-image.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -358,13 +358,18 @@
   }
   .mini-card:hover{transform:translateY(-6px);border-color:var(--accent);}
   .mini-thumb{
-    width:calc(100% + 56px);margin:-28px -28px 20px;height:190px;
+    width:calc(100% + 56px);margin:-28px -28px 18px;height:160px;
     background:#0d0a07;border-bottom:1px solid var(--line);
     overflow:hidden;
   }
   .mini-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;}
   .mini-thumb.placeholder{display:flex;align-items:center;justify-content:center;}
-  .mini-thumb.placeholder svg{width:52px;height:52px;color:rgba(255,255,255,0.9);}
+  .mini-thumb.placeholder svg{width:46px;height:46px;color:rgba(255,255,255,0.9);}
+  .mini-thumb.phone-frame{
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(150deg,#2b2118,#171310);
+  }
+  .mini-thumb.phone-frame img{width:auto;height:calc(100% + 40px);object-fit:contain;}
   .mini-card .p-label{font-size:0.76rem;color:var(--accent);font-weight:600;margin-bottom:10px;}
   .mini-card h4{font-size:1.15rem;margin-bottom:10px;}
   .mini-card p{color:var(--muted);font-size:0.92rem;margin-bottom:16px;}
@@ -543,7 +548,7 @@
         <span class="sparkle s1">✦</span>
         <span class="sparkle s2">✦</span>
         <div class="avatar-frame">
-          <img src="ahmad-photo.png" alt="Ahmad Alshakhshir" id="avatarImg" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'avatar-fallback', textContent:'AA'}))">
+          <img src="ahmad-photo.jpg" alt="Ahmad Alshakhshir" id="avatarImg" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'avatar-fallback', textContent:'AA'}))">
         </div>
         <div class="badge-float b1"><span class="ic"></span> Flutter Developer</div>
         <div class="badge-float b2"><span class="ic"></span> ASP.NET Developer</div>
@@ -676,7 +681,7 @@
     </div>
     <div class="projects-list">
       <div class="project-card reveal">
-        <div class="project-visual"><img src="project-ableplus.png" alt="Able+ app login screen"></div>
+        <div class="project-visual"><img src="project-ableplus.jpg" alt="Able+ app login screen"></div>
         <div class="project-body">
           <div class="p-label">Graduation Project · Team Lead</div>
           <h3>Able+ — Accessibility Services Platform</h3>
@@ -733,7 +738,7 @@
         </div>
       </div>
       <div class="mini-card reveal">
-        <div class="mini-thumb"><img src="project-alrashed.png" alt="Al-Rashid Renewable Energy website screenshot"></div>
+        <div class="mini-thumb"><img src="project-alrashed.jpg" alt="Al-Rashid Renewable Energy website screenshot"></div>
         <div class="p-label">Web Project</div>
         <h4>Al-Rashid Renewable Energy</h4>
         <p>A bilingual (Arabic/English) marketing website for a renewable energy company, built and deployed on a custom domain.</p>
@@ -746,7 +751,7 @@
         </div>
       </div>
       <div class="mini-card reveal">
-        <div class="mini-thumb"><img src="project-admin-dashboard.png" alt="Admin dashboard screenshot" style="object-position:top left;"></div>
+        <div class="mini-thumb"><img src="project-admin-dashboard.jpg" alt="Admin dashboard screenshot" style="object-position:top left;"></div>
         <div class="p-label">Personal Project</div>
         <h4>Admin Dashboard</h4>
         <p>An admin panel for managing users and requests, with a web dashboard (users, requests, pending counts) and a companion Flutter app for handling requests on the go.</p>
@@ -760,7 +765,7 @@
         </div>
       </div>
       <div class="mini-card reveal">
-        <div class="mini-thumb"><img src="project-newsapp.jpg" alt="Pulse News app screenshot"></div>
+        <div class="mini-thumb phone-frame"><img src="project-newsapp.jpg" alt="Pulse News app screenshot"></div>
         <div class="p-label">Personal Project</div>
         <h4>News App</h4>
         <p>A news reader app built with Clean Architecture, pulling live headlines through a REST API with Dio and caching articles locally for offline reading.</p>
@@ -774,7 +779,7 @@
         </div>
       </div>
       <div class="mini-card reveal">
-        <div class="mini-thumb"><img src="project-expense.png" alt="Expense Tracker app screenshot"></div>
+        <div class="mini-thumb"><img src="project-expense.jpg" alt="Expense Tracker app screenshot"></div>
         <div class="p-label">Personal Project</div>
         <h4>Expense Tracker</h4>
         <p>A personal expense tracking app with category-based organization, using Cubit for state management.</p>
@@ -787,7 +792,7 @@
         </div>
       </div>
       <div class="mini-card reveal">
-        <div class="mini-thumb"><img src="project-recipes.png" alt="Recipes App screenshot"></div>
+        <div class="mini-thumb"><img src="project-recipes.jpg" alt="Recipes App screenshot"></div>
         <div class="p-label">Personal Project</div>
         <h4>Recipes App</h4>
         <p>A Flutter recipe browser with a list and detail view for exploring recipes and their ingredients.</p>
@@ -825,7 +830,7 @@
     <div class="cert-grid">
       <div class="cert-card reveal">
         <a class="cert-thumb" href="https://www.credly.com/go/kgzF9cMP" target="_blank" rel="noopener">
-          <img src="cert-cloud.png" alt="AWS Academy Cloud Foundations certificate">
+          <img src="cert-cloud.jpg" alt="AWS Academy Cloud Foundations certificate">
         </a>
         <div class="cert-body">
           <div><h4>Cloud Foundations</h4><span>AWS Academy</span></div>
@@ -833,8 +838,8 @@
         </div>
       </div>
       <div class="cert-card reveal">
-        <a class="cert-thumb" href="cert-cisco.png" target="_blank" rel="noopener">
-          <img src="cert-cisco.png" alt="Cisco Data Analytics Essentials certificate">
+        <a class="cert-thumb" href="cert-cisco.jpg" target="_blank" rel="noopener">
+          <img src="cert-cisco.jpg" alt="Cisco Data Analytics Essentials certificate">
         </a>
         <div class="cert-body">
           <div><h4>Data Analytics Essentials</h4><span>Cisco Networking Academy</span></div>
@@ -843,7 +848,7 @@
       </div>
       <div class="cert-card reveal">
         <a class="cert-thumb" href="https://www.credly.com/go/hrN1OEq2" target="_blank" rel="noopener">
-          <img src="cert-dataeng.png" alt="AWS Academy Data Engineering certificate">
+          <img src="cert-dataeng.jpg" alt="AWS Academy Data Engineering certificate">
         </a>
         <div class="cert-body">
           <div><h4>Data Engineering</h4><span>AWS Academy</span></div>
@@ -851,8 +856,8 @@
         </div>
       </div>
       <div class="cert-card reveal">
-        <a class="cert-thumb" href="cert-azure.png" target="_blank" rel="noopener">
-          <img src="cert-azure.png" alt="Microsoft Certified Azure Fundamentals certificate">
+        <a class="cert-thumb" href="cert-azure.jpg" target="_blank" rel="noopener">
+          <img src="cert-azure.jpg" alt="Microsoft Certified Azure Fundamentals certificate">
         </a>
         <div class="cert-body">
           <div><h4>Azure Fundamentals</h4><span>Microsoft</span></div>
