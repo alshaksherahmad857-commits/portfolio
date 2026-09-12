@@ -273,16 +273,28 @@
   }
   .about-card p{color:#4a4030;margin-bottom:18px;font-size:1.02rem;}
   .facts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px;}
+  .fact{display:flex;gap:12px;align-items:flex-start;}
+  .fact-icon{
+    width:34px;height:34px;border-radius:10px;flex-shrink:0;
+    background:rgba(32,26,20,0.06);color:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+  }
   .fact b{display:block;font-family:'Outfit',sans-serif;color:var(--ink);font-size:1rem;margin-bottom:2px;}
   .fact span{font-size:0.85rem;color:var(--muted-2);}
   .quote-panel{
     background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);
     padding:40px;
   }
-  .quote-panel h3{font-size:1.3rem;margin-bottom:16px;}
-  .quote-panel ul{display:flex;flex-direction:column;gap:16px;}
-  .quote-panel li{display:flex;gap:12px;align-items:flex-start;color:var(--text-soft);font-size:0.98rem;}
-  .quote-panel li::before{content:'—';color:var(--accent);font-weight:700;}
+  .quote-panel h3{font-size:1.3rem;margin-bottom:20px;}
+  .quote-panel ul{display:flex;flex-direction:column;gap:22px;}
+  .quote-panel li{display:flex;gap:14px;align-items:flex-start;}
+  .work-icon{
+    width:42px;height:42px;border-radius:12px;flex-shrink:0;
+    background:rgba(242,169,59,0.14);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .quote-panel li h4{font-size:0.98rem;color:var(--heading);margin-bottom:3px;}
+  .quote-panel li p{font-size:0.86rem;color:var(--muted);margin:0;}
 
   .skills-grid{
     display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
@@ -317,8 +329,9 @@
   .project-visual{
     background:linear-gradient(150deg,#2b2118,#171310);
     display:flex;align-items:center;justify-content:center;
-    padding:36px;position:relative;
+    position:relative;min-height:320px;overflow:hidden;
   }
+  .project-visual img{width:100%;height:100%;object-fit:cover;object-position:top center;}
   .project-tag-big{
     font-family:'Outfit',sans-serif;font-weight:800;font-size:2.2rem;color:rgba(242,169,59,0.85);
     text-align:center;
@@ -341,8 +354,15 @@
   .mini-card{
     background:var(--bg-soft);border:1px solid var(--line);border-radius:18px;padding:28px;
     transition:transform .3s ease, border-color .3s ease;
+    overflow:hidden;
   }
   .mini-card:hover{transform:translateY(-6px);border-color:var(--accent);}
+  .mini-thumb{
+    width:calc(100% + 56px);margin:-28px -28px 20px;height:190px;
+    background:#0d0a07;border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .mini-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;}
   .mini-card .p-label{font-size:0.76rem;color:var(--accent);font-weight:600;margin-bottom:10px;}
   .mini-card h4{font-size:1.15rem;margin-bottom:10px;}
   .mini-card p{color:var(--muted);font-size:0.92rem;margin-bottom:16px;}
@@ -445,7 +465,7 @@
     .about-grid{grid-template-columns:1fr;}
     .skills-grid{grid-template-columns:repeat(2,1fr);}
     .project-card{grid-template-columns:1fr;}
-    .project-visual{padding:26px;min-height:120px;}
+    .project-visual{min-height:260px;}
     .projects-grid{grid-template-columns:1fr;}
     .cert-grid{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr;}
@@ -542,19 +562,43 @@
         <p>I'm a Computer Science graduate from Applied Science Private University (ASU) in Jordan, graduated with a Good standing. My focus is mobile app development with Flutter, and I took my graduation project seriously — as Team Lead on Able+, a platform that helps people in Jordan find accessible services, charities, tutors, and community support for people with disabilities.</p>
         <p>Beyond Able+, I've delivered full-stack websites and mobile apps for real use cases: a medical devices and supplies platform, a travel company's website, and a travel company's mobile app. I work with Clean Architecture and prefer organized, maintainable code over quick patch-jobs.</p>
         <div class="facts">
-          <div class="fact"><b>University</b><span>Applied Science Private University</span></div>
-          <div class="fact"><b>Location</b><span>Zarqa, Jordan</span></div>
-          <div class="fact"><b>Standing</b><span>Bachelor's in CS — Good</span></div>
-          <div class="fact"><b>Core Stack</b><span>Flutter &amp; Dart</span></div>
+          <div class="fact">
+            <div class="fact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M22 10L12 5 2 10l10 5 10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><b>University</b><span>Applied Science Private University</span></div>
+          </div>
+          <div class="fact">
+            <div class="fact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/></svg></div>
+            <div><b>Location</b><span>Zarqa, Jordan</span></div>
+          </div>
+          <div class="fact">
+            <div class="fact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 15a6 6 0 100-12 6 6 0 000 12z" stroke="currentColor" stroke-width="2"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><b>Standing</b><span>Bachelor's in CS — Good</span></div>
+          </div>
+          <div class="fact">
+            <div class="fact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 17l6-6-6-6M12 19h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><b>Core Stack</b><span>Flutter &amp; Dart</span></div>
+          </div>
         </div>
       </div>
       <div class="quote-panel reveal">
         <h3>How I work</h3>
         <ul>
-          <li>I understand the real problem before I open the editor, not the other way around.</li>
-          <li>One clean solution beats ten fast, patched-together ones.</li>
-          <li>I write code and docs for a whole team to read, not just myself.</li>
-          <li>Every bug I've fixed became part of how I build the next thing.</li>
+          <li>
+            <div class="work-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <div><h4>Understand first</h4><p>I dig into the real problem before I open the editor.</p></div>
+          </li>
+          <li>
+            <div class="work-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><h4>Simple over fast</h4><p>One clean solution beats ten patched-together ones.</p></div>
+          </li>
+          <li>
+            <div class="work-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><h4>Built for teams</h4><p>Code and docs written for the whole team, not just me.</p></div>
+          </li>
+          <li>
+            <div class="work-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M23 4v6h-6M1 20v-6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><h4>Learn from bugs</h4><p>Every bug I fix shapes how I build the next thing.</p></div>
+          </li>
         </ul>
       </div>
     </div>
@@ -631,7 +675,7 @@
     </div>
     <div class="projects-list">
       <div class="project-card reveal">
-        <div class="project-visual"><span class="project-tag-big">Able+</span></div>
+        <div class="project-visual"><img src="project-ableplus.png" alt="Able+ app login screen"></div>
         <div class="project-body">
           <div class="p-label">Graduation Project · Team Lead</div>
           <h3>Able+ — Accessibility Services Platform</h3>
@@ -642,7 +686,7 @@
             <span class="tag">ASP.NET</span>
             <span class="tag">Supabase</span>
           </div>
-          <a class="project-link" href="https://github.com/alshaksherahmad857-commits?tab=repositories" target="_blank" rel="noopener">
+          <a class="project-link" href="https://github.com/aboodGR/able_plus_final" target="_blank" rel="noopener">
             View on GitHub
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
@@ -679,15 +723,15 @@
         </div>
       </div>
       <div class="mini-card reveal">
-        <div class="p-label">Live Website</div>
+        <div class="mini-thumb"><img src="project-alrashed.png" alt="Al-Rashid Renewable Energy website screenshot"></div>
+        <div class="p-label">Web Project</div>
         <h4>Al-Rashid Renewable Energy</h4>
-        <p>A bilingual (Arabic/English) marketing website for a renewable energy company, deployed live on its own custom domain.</p>
+        <p>A bilingual (Arabic/English) marketing website for a renewable energy company, built and deployed on a custom domain.</p>
         <div class="tag-row">
           <span class="tag">HTML &amp; CSS</span>
           <span class="tag">Deployment</span>
         </div>
         <div class="mini-links">
-          <a class="mini-link" href="https://alrashidjo.com" target="_blank" rel="noopener">Visit Site ↗</a>
           <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/alrashed.com" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
@@ -714,10 +758,11 @@
           <span class="tag">Caching</span>
         </div>
         <div class="mini-links">
-          <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/news_app" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/newsproject" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
       <div class="mini-card reveal">
+        <div class="mini-thumb"><img src="project-expense.png" alt="Expense Tracker app screenshot"></div>
         <div class="p-label">Personal Project</div>
         <h4>Expense Tracker</h4>
         <p>A personal expense tracking app with category-based organization, using Cubit for state management.</p>
@@ -730,6 +775,7 @@
         </div>
       </div>
       <div class="mini-card reveal">
+        <div class="mini-thumb"><img src="project-recipes.png" alt="Recipes App screenshot"></div>
         <div class="p-label">Personal Project</div>
         <h4>Recipes App</h4>
         <p>A Flutter recipe browser with a list and detail view for exploring recipes and their ingredients.</p>
@@ -818,12 +864,18 @@
           <div class="t-logo"><img src="coderz-logo.png" alt="Coderz Academy logo"></div>
           <h4>FUNDEV X with AI Bootcamp — Coders Academy</h4>
         </div>
-        <p>Full-stack and mobile bootcamp covering RESTful API development with ASP.NET Core, SQL Server and Entity Framework Core database design, CRUD operations with relationships and migrations, JWT authentication and authorization, and real-time features with SignalR and WebSockets. On the mobile side: Dart and professional Flutter development, responsive UI design and state management, secure backend integration, push notifications, Google Maps and device/camera features, and app deployment to Android and iOS — alongside using AI tools to speed up coding, refactoring, testing, and documentation.</p>
-      </div>
-      <div class="t-item reveal">
-        <div class="t-date">Ongoing</div>
-        <h4>Independent Project Work</h4>
-        <p>Building and refining a booking system with an admin dashboard, alongside continued client projects in web and mobile.</p>
+        <p>A full-stack and mobile bootcamp covering backend APIs, databases, real-time features, and professional Flutter development — with AI tools woven into the workflow.</p>
+        <div class="tag-row">
+          <span class="tag">ASP.NET Core</span>
+          <span class="tag">SQL Server</span>
+          <span class="tag">EF Core</span>
+          <span class="tag">JWT Auth</span>
+          <span class="tag">SignalR</span>
+          <span class="tag">Flutter</span>
+          <span class="tag">Push Notifications</span>
+          <span class="tag">Google Maps</span>
+          <span class="tag">AI Tools</span>
+        </div>
       </div>
     </div>
   </div>
@@ -834,15 +886,15 @@
     <div class="cta-banner reveal">
       <h3>Have a project in mind?</h3>
       <p>I'm open to internships, full-time roles, and freelance work — let's build something together.</p>
-      <a href="#contact" class="btn btn-primary">Get In Touch</a>
+      <a href="#contact" class="btn btn-primary">Contact Me</a>
     </div>
   </div>
 </section>
 
-<section class="section-pad" id="contact">
+<section class="section-pad" id="contact" hidden>
   <div class="wrap contact-grid">
     <div class="contact-info reveal">
-      <h2>Let's <span style="color:var(--accent)">connect</span></h2>
+      <h2><span style="color:var(--accent)">Contact</span></h2>
       <p>Have a project idea, an internship or job opportunity, or just want to talk Flutter? Reach out directly.</p>
       <div class="contact-links">
         <a href="https://www.linkedin.com/in/ahmad-alshakhshir-2a911a2aas" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
@@ -906,6 +958,19 @@
       document.documentElement.setAttribute('data-theme', 'light');
       try { localStorage.setItem('theme', 'light'); } catch (e) {}
     }
+  });
+
+  const contactSection = document.getElementById('contact');
+  document.querySelectorAll('a[href="#contact"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (contactSection.hasAttribute('hidden')) {
+        contactSection.removeAttribute('hidden');
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        contactSection.setAttribute('hidden', '');
+      }
+    });
   });
 
   const burger = document.getElementById('burger');
