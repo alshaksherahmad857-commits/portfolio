@@ -284,20 +284,11 @@
   }
   .fact b{display:block;font-family:'Outfit',sans-serif;color:var(--ink);font-size:1rem;margin-bottom:2px;}
   .fact span{font-size:0.85rem;color:var(--muted-2);}
-  .quote-panel{
-    background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);
-    padding:40px;
+  .about-photo{
+    border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+    aspect-ratio:1/1;
   }
-  .quote-panel h3{font-size:1.3rem;margin-bottom:20px;}
-  .quote-panel ul{display:flex;flex-direction:column;gap:22px;}
-  .quote-panel li{display:flex;gap:14px;align-items:flex-start;}
-  .work-icon{
-    width:42px;height:42px;border-radius:12px;flex-shrink:0;
-    background:rgba(242,169,59,0.14);color:var(--accent);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .quote-panel li h4{font-size:0.98rem;color:var(--heading);margin-bottom:3px;}
-  .quote-panel li p{font-size:0.86rem;color:var(--muted);margin:0;}
+  .about-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;}
 
   .skills-grid{
     display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
@@ -582,26 +573,8 @@
           </div>
         </div>
       </div>
-      <div class="quote-panel reveal">
-        <h3>How I work</h3>
-        <ul>
-          <li>
-            <div class="work-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-            <div><h4>Understand first</h4><p>I dig into the real problem before I open the editor.</p></div>
-          </li>
-          <li>
-            <div class="work-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div><h4>Simple over fast</h4><p>One clean solution beats ten patched-together ones.</p></div>
-          </li>
-          <li>
-            <div class="work-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div><h4>Built for teams</h4><p>Code and docs written for the whole team, not just me.</p></div>
-          </li>
-          <li>
-            <div class="work-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M23 4v6h-6M1 20v-6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div><h4>Learn from bugs</h4><p>Every bug I fix shapes how I build the next thing.</p></div>
-          </li>
-        </ul>
+      <div class="about-photo reveal">
+        <img src="about-presenting.jpg" alt="Ahmad presenting to an audience">
       </div>
     </div>
   </div>
