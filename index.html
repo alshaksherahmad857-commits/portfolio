@@ -33,7 +33,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
   :root{
     --bg:#120e0a;
@@ -92,11 +91,14 @@
   .section-glow{
     position:absolute;width:560px;height:560px;border-radius:50%;
     filter:blur(70px);pointer-events:none;z-index:0;opacity:0.55;
+    animation:glow-pulse 9s ease-in-out infinite;
   }
   .section-glow.left{left:-180px;}
   .section-glow.right{right:-180px;}
   .section-glow.top{top:-160px;}
   .section-glow.bottom{bottom:-160px;}
+  .section-glow.bottom,.section-glow.right{animation-delay:-4.5s;}
+  @keyframes glow-pulse{0%,100%{transform:scale(1);opacity:0.5;}50%{transform:scale(1.18);opacity:0.75;}}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;position:relative;z-index:1;}
   ::selection{background:var(--accent);color:var(--ink);}
 
@@ -106,6 +108,42 @@
     .reveal{opacity:1;transform:none;transition:none;}
     *{animation:none !important;}
   }
+
+  @keyframes hero-fade-up{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
+  .hero-title,.role-line,.hero-actions,.stats-row,.hero-visual{
+    opacity:0;
+    animation:hero-fade-up .9s ease forwards;
+  }
+  .hero-title{animation-delay:.1s;}
+  .role-line{animation-delay:.28s;}
+  .hero-actions{animation-delay:.46s;}
+  .stats-row{animation-delay:.64s;}
+  .hero-visual{animation-delay:.32s;}
+  @media (prefers-reduced-motion: reduce){
+    .hero-title,.role-line,.hero-actions,.stats-row,.hero-visual{opacity:1;}
+  }
+
+  .skills-grid .skill-card:nth-child(1){transition-delay:.03s;}
+  .skills-grid .skill-card:nth-child(2){transition-delay:.08s;}
+  .skills-grid .skill-card:nth-child(3){transition-delay:.13s;}
+  .skills-grid .skill-card:nth-child(4){transition-delay:.18s;}
+  .skills-grid .skill-card:nth-child(5){transition-delay:.23s;}
+  .skills-grid .skill-card:nth-child(6){transition-delay:.28s;}
+  .skills-grid .skill-card:nth-child(7){transition-delay:.33s;}
+  .skills-grid .skill-card:nth-child(8){transition-delay:.38s;}
+  .projects-grid .mini-card:nth-child(1){transition-delay:.03s;}
+  .projects-grid .mini-card:nth-child(2){transition-delay:.08s;}
+  .projects-grid .mini-card:nth-child(3){transition-delay:.13s;}
+  .projects-grid .mini-card:nth-child(4){transition-delay:.18s;}
+  .projects-grid .mini-card:nth-child(5){transition-delay:.23s;}
+  .projects-grid .mini-card:nth-child(6){transition-delay:.28s;}
+  .projects-grid .mini-card:nth-child(7){transition-delay:.33s;}
+  .projects-grid .mini-card:nth-child(8){transition-delay:.38s;}
+  .projects-grid .mini-card:nth-child(9){transition-delay:.43s;}
+  .cert-grid .cert-card:nth-child(1){transition-delay:.03s;}
+  .cert-grid .cert-card:nth-child(2){transition-delay:.08s;}
+  .cert-grid .cert-card:nth-child(3){transition-delay:.13s;}
+  .cert-grid .cert-card:nth-child(4){transition-delay:.18s;}
 
   header{
     position:fixed;top:0;left:0;right:0;z-index:100;
@@ -195,7 +233,8 @@
     min-height:2.2rem;
     display:flex;align-items:center;gap:10px;
   }
-  #typed{color:var(--accent);font-weight:600;border-right:2px solid var(--accent);padding-right:6px;}
+  #typed{color:var(--accent);font-weight:600;border-right:2px solid var(--accent);padding-right:6px;animation:caret-blink 1s step-end infinite;}
+  @keyframes caret-blink{0%,100%{border-color:var(--accent);}50%{border-color:transparent;}}
   .hero p.desc{
     color:var(--muted);
     max-width:48ch;
@@ -212,10 +251,24 @@
     border:1px solid transparent;
     font-family:inherit;cursor:pointer;
   }
-  .btn-primary{background:var(--accent);color:var(--ink);}
-  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 30px -12px rgba(242,169,59,0.55);}
+  .btn-primary{
+    background:linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color:var(--ink);position:relative;overflow:hidden;
+    box-shadow:0 10px 26px -14px rgba(242,169,59,0.7);
+  }
+  .btn-primary svg{transition:transform .25s ease;}
+  .btn-primary::after{
+    content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;
+    background:linear-gradient(115deg,transparent,rgba(255,255,255,0.45),transparent);
+    transform:skewX(-20deg);transition:left .6s ease;
+  }
+  .btn-primary:hover::after{left:130%;}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 34px -12px rgba(242,169,59,0.65);}
+  .btn-primary:hover svg{transform:translate(3px,-3px);}
   .btn-ghost{border-color:var(--line);color:var(--text);}
+  .btn-ghost svg{transition:transform .25s ease;}
   .btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);}
+  .btn-ghost:hover svg{transform:translateY(2px);}
 
   .stats-row{display:flex;gap:44px;flex-wrap:wrap;}
   .stat b{
@@ -231,7 +284,9 @@
     padding:26px;
     position:relative;
     box-shadow:0 40px 70px -30px rgba(0,0,0,0.6);
+    animation:avatar-float 6s ease-in-out infinite;
   }
+  @keyframes avatar-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
   .avatar-frame{
     width:100%;aspect-ratio:1/1.05;border-radius:24px;
     background:linear-gradient(160deg,#2b2118,#171310);
@@ -356,7 +411,8 @@
     background:#0d0a07;border-bottom:1px solid var(--line);
     overflow:hidden;
   }
-  .mini-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+  .mini-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s ease;}
+  .mini-card:hover .mini-thumb img{transform:scale(1.08);}
   .mini-thumb.placeholder{display:flex;align-items:center;justify-content:center;}
   .mini-thumb.placeholder svg{width:46px;height:46px;color:rgba(255,255,255,0.9);}
   .mini-thumb.phone-frame{
@@ -402,56 +458,55 @@
   .t-item h4{font-size:1.15rem;}
   .t-item p{color:var(--muted);font-size:0.95rem;max-width:56ch;}
 
-  .cta-section{padding:0 0 120px;}
-  .cta-banner{
-    background:linear-gradient(150deg, var(--bg-soft), var(--bg));
-    border:1px solid var(--line);border-radius:var(--radius);
-    padding:60px 40px;text-align:center;
-    display:flex;flex-direction:column;align-items:center;gap:18px;
+  .contact-section{padding:0 0 60px;}
+  .contact-card{
+    position:relative;overflow:hidden;
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:32px;
+    padding:80px 70px 44px;
   }
-  .cta-banner h3{font-size:clamp(1.6rem,3vw,2.2rem);}
-  .cta-banner p{color:var(--muted);max-width:48ch;font-size:1.02rem;}
-
-  .contact-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:50px;}
-  .contact-info h2{font-size:clamp(2rem,3.4vw,2.6rem);margin-bottom:18px;}
-  .contact-info p{color:var(--muted);margin-bottom:30px;max-width:44ch;}
-  .contact-links{display:flex;flex-wrap:wrap;gap:16px;}
-  .contact-links a{
-    width:58px;height:58px;border-radius:50%;flex-shrink:0;
+  .contact-card::before{
+    content:'';position:absolute;top:-120px;right:-80px;width:620px;height:620px;border-radius:50%;
+    background:radial-gradient(circle, rgba(242,169,59,0.22), transparent 65%);
+    pointer-events:none;
+  }
+  .contact-main{
+    position:relative;display:grid;grid-template-columns:1fr minmax(0,460px);
+    gap:50px;align-items:center;padding-bottom:60px;
+  }
+  .contact-intro h2{font-size:clamp(2rem,4vw,3.3rem);margin-bottom:18px;}
+  .contact-intro p{color:var(--muted);font-size:1.1rem;max-width:44ch;margin-bottom:28px;}
+  .contact-list{display:flex;flex-direction:column;gap:18px;}
+  .contact-row{
+    display:flex;align-items:center;gap:18px;min-width:0;
+    padding:16px 20px;border-radius:18px;
+    background:var(--tag-bg);border:1px solid var(--line);
+    color:var(--heading);font-weight:600;font-size:1.02rem;
+    backdrop-filter:blur(6px);
+    transition:border-color .25s ease, transform .25s ease;
+  }
+  .contact-row > span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .contact-row:hover{border-color:var(--accent);transform:translateX(-4px);}
+  .contact-ic{
+    width:48px;height:48px;border-radius:12px;flex-shrink:0;
     display:flex;align-items:center;justify-content:center;
-    background:var(--bg-soft);border:1px solid var(--line);color:var(--text);
-    transition:color .25s ease, border-color .25s ease, transform .25s ease, background .25s ease;
+    background:var(--line);color:var(--heading);transition:color .25s ease, background .25s ease;
   }
-  .contact-links a:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-4px);background:#221a13;}
-  .contact-links a svg{width:22px;height:22px;}
-  form{background:var(--cream);border-radius:var(--radius);padding:38px;color:var(--ink);}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-  form label{display:block;font-size:0.82rem;font-weight:600;margin-bottom:6px;color:#4a4030;}
-  form input, form textarea{
-    width:100%;padding:13px 14px;border-radius:12px;border:1px solid rgba(0,0,0,0.12);
-    background:var(--paper);font-family:'Inter',sans-serif;font-size:0.95rem;color:var(--ink);
-    transition:border-color .25s ease, box-shadow .25s ease;
+  .contact-row:hover .contact-ic{background:var(--accent);color:var(--ink);}
+  .contact-foot{
+    position:relative;border-top:1px solid var(--line);padding-top:36px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;
   }
-  form input:focus, form textarea:focus{
-    outline:none;border-color:var(--accent-dark);box-shadow:0 0 0 3px rgba(242,169,59,0.25);
+  .foot-id{display:flex;align-items:center;gap:18px;}
+  .foot-avatar{
+    width:62px;height:62px;border-radius:16px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg, var(--accent), var(--accent-dark));color:var(--ink);
+    font-family:'Outfit',sans-serif;font-weight:800;font-size:1.3rem;
+    box-shadow:0 10px 28px rgba(242,169,59,0.3);
   }
-  form textarea{resize:vertical;min-height:110px;margin-bottom:20px;}
-  .form-note{font-size:0.8rem;color:var(--muted-2);margin-top:14px;}
-  .submit-btn{
-    width:100%;background:var(--ink);color:var(--paper);border:none;padding:15px;border-radius:12px;
-    font-weight:600;font-size:0.98rem;cursor:pointer;transition:background .25s ease, transform .2s ease;
-  }
-  .submit-btn:hover{background:var(--accent-dark);transform:translateY(-2px);}
-  .submit-btn:disabled{opacity:0.7;cursor:default;transform:none;}
-
-  footer{border-top:1px solid var(--line);padding:34px 0;}
-  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
-  footer p{color:var(--muted-2);font-size:0.85rem;}
-  .back-top{
-    width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
-    display:flex;align-items:center;justify-content:center;transition:border-color .25s ease, transform .25s ease;
-  }
-  .back-top:hover{border-color:var(--accent);transform:translateY(-4px);}
+  .foot-id strong{display:block;font-family:'Outfit',sans-serif;font-size:1.25rem;color:var(--heading);}
+  .foot-id div span{color:var(--muted);}
+  .contact-foot p{color:var(--muted);font-size:0.95rem;}
 
   .skip-link{
     position:absolute;left:16px;top:-60px;background:var(--accent);color:var(--ink);
@@ -468,7 +523,8 @@
     .project-visual{height:320px;}
     .projects-grid{grid-template-columns:1fr;}
     .cert-grid{grid-template-columns:1fr;}
-    .contact-grid{grid-template-columns:1fr;}
+    .contact-main{grid-template-columns:minmax(0,1fr);}
+    .contact-card{padding:60px 36px 36px;}
   }
   @media (max-width:720px){
     .nav-links{
@@ -480,7 +536,10 @@
     .nav-links.open{transform:translateX(0);}
     .burger{display:block;}
     .stats-row{gap:26px;}
-    .form-row{grid-template-columns:1fr;}
+    .contact-card{padding:44px 18px 28px;border-radius:24px;}
+    .contact-row{padding:12px 14px;gap:14px;font-size:0.95rem;}
+    .contact-ic{width:42px;height:42px;}
+    .contact-foot{flex-direction:column;align-items:flex-start;}
   }
 </style>
 </head>
@@ -519,7 +578,9 @@
         <span id="typed"></span>
       </div>
       <div class="hero-actions">
-        <a href="https://github.com/alshaksherahmad857-commits?tab=repositories" target="_blank" rel="noopener" class="btn btn-primary">View My Work</a>
+        <a href="https://github.com/alshaksherahmad857-commits?tab=repositories" target="_blank" rel="noopener" class="btn btn-primary">View My Work
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
       <div class="stats-row">
         <div class="stat"><b data-count="10">0</b><span>Real projects shipped</span></div>
@@ -671,9 +732,7 @@
 
     <div class="projects-grid">
       <div class="mini-card reveal">
-        <div class="mini-thumb placeholder" style="background:linear-gradient(150deg,#0d7377,#0a4a4d);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-        </div>
+        <div class="mini-thumb"><img src="project-elderlymed.jpg" alt="ElderlyMed Devices &amp; Supplies website screenshot"></div>
         <div class="p-label">Jun 2025 – Nov 2025</div>
         <h4>ElderlyMed Devices &amp; Supplies</h4>
         <p>A full-stack website for medical devices and supplies. Built the user interfaces and connected the site to database functionality.</p>
@@ -683,9 +742,7 @@
         </div>
       </div>
       <div class="mini-card reveal">
-        <div class="mini-thumb placeholder" style="background:linear-gradient(150deg,#c9791e,#7a3f0d);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20 15.3 15.3 0 010-20z"/></svg>
-        </div>
+        <div class="mini-thumb"><img src="project-travel.jpg" alt="Travel Company website screenshot"></div>
         <div class="p-label">Aug 2024 – Sep 2025</div>
         <h4>Travel Company Website</h4>
         <p>A travel company website with pages for services, destinations, and customer information — front-end pages, database features, and improved UX.</p>
@@ -891,69 +948,50 @@
   </div>
 </section>
 
-<section class="cta-section">
+<section class="contact-section" id="contact">
   <div class="wrap">
-    <div class="cta-banner reveal">
-      <h3>Have a project in mind?</h3>
-      <p>I'm open to internships, full-time roles, and freelance work — let's build something together.</p>
-      <div class="hero-actions" style="justify-content:center;">
-        <a href="#contact" class="btn btn-primary">Contact Me</a>
-        <a href="Ahmad_Alshakhshir_CV.pdf" download class="btn btn-ghost">Download CV</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section-pad" id="contact" hidden>
-  <div class="wrap contact-grid">
-    <div class="contact-info reveal">
-      <h2><span style="color:var(--accent)">Contact</span></h2>
-      <p>Have a project idea, an internship or job opportunity, or just want to talk Flutter? Reach out directly.</p>
-      <div class="contact-links">
-        <a href="https://www.linkedin.com/in/ahmad-alshakhshir-2a911a2aa" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.25h4.5V23H.24V8.25zM8.5 8.25h4.31v2.02h.06c.6-1.14 2.08-2.34 4.28-2.34 4.58 0 5.43 3.02 5.43 6.94V23h-4.5v-6.89c0-1.64-.03-3.75-2.29-3.75-2.29 0-2.64 1.79-2.64 3.63V23H8.5V8.25z" fill="currentColor"/></svg>
-        </a>
-        <a href="https://github.com/alshaksherahmad857-commits?tab=repositories" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.22-3.37-1.22-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.05a9.29 9.29 0 015 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0022 12.25C22 6.58 17.52 2 12 2z" fill="currentColor"/></svg>
-        </a>
-        <a href="mailto:alshaksherahmad857@gmail.com" aria-label="Email" title="Email">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 6l9 7 9-7M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="tel:+962790293429" aria-label="Phone" title="Phone">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-      <p style="color:var(--muted);font-size:0.85rem;margin-top:16px;">alshaksherahmad857@gmail.com · +962 79 029 3429</p>
-    </div>
-
-    <form id="contactForm" novalidate>
-      <div class="form-row">
-        <div>
-          <label for="fName">Name</label>
-          <input type="text" id="fName" name="name" placeholder="Your full name" required>
+    <div class="contact-card reveal">
+      <div class="contact-main">
+        <div class="contact-intro">
+          <h2>Let's work together</h2>
+          <p>Send me a message any time, I will reply as soon as I can.</p>
+          <a href="Ahmad_Alshakhshir_CV.pdf" download class="btn btn-ghost">Download CV
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
-        <div>
-          <label for="fEmail">Email</label>
-          <input type="email" id="fEmail" name="email" placeholder="you@email.com" required>
+        <div class="contact-list">
+          <a href="mailto:alshaksherahmad857@gmail.com" class="contact-row">
+            <span class="contact-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6l9 7 9-7M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span>alshaksherahmad857@gmail.com</span>
+          </a>
+          <a href="tel:+962790293429" class="contact-row">
+            <span class="contact-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span dir="ltr">+962 79 029 3429</span>
+          </a>
+          <a href="https://github.com/alshaksherahmad857-commits?tab=repositories" target="_blank" rel="noopener" class="contact-row">
+            <span class="contact-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.22-3.37-1.22-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.05a9.29 9.29 0 015 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0022 12.25C22 6.58 17.52 2 12 2z" fill="currentColor"/></svg></span>
+            <span>github.com/alshaksherahmad857-commits</span>
+          </a>
+          <a href="https://www.linkedin.com/in/ahmad-alshakhshir-2a911a2aa" target="_blank" rel="noopener" class="contact-row">
+            <span class="contact-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.25h4.5V23H.24V8.25zM8.5 8.25h4.31v2.02h.06c.6-1.14 2.08-2.34 4.28-2.34 4.58 0 5.43 3.02 5.43 6.94V23h-4.5v-6.89c0-1.64-.03-3.75-2.29-3.75-2.29 0-2.64 1.79-2.64 3.63V23H8.5V8.25z" fill="currentColor"/></svg></span>
+            <span>Ahmad Alshakhshir</span>
+          </a>
         </div>
       </div>
-      <label for="fMessage">Message</label>
-      <textarea id="fMessage" name="message" placeholder="Tell me about the opportunity or idea..." required></textarea>
-      <button class="submit-btn" type="submit">Send Message</button>
-      <p class="form-note" id="formNote">Messages are sent directly to Ahmad's email via EmailJS.</p>
-    </form>
+      <footer class="contact-foot">
+        <div class="foot-id">
+          <span class="foot-avatar">AA</span>
+          <div>
+            <strong>Ahmad Alshakhshir</strong>
+            <span>Flutter Developer</span>
+          </div>
+        </div>
+        <p>© 2026 Ahmad Alshakhshir. All Rights Reserved.</p>
+      </footer>
+    </div>
   </div>
 </section>
 </main>
-
-<footer>
-  <div class="wrap">
-    <p>© 2026 Ahmad Alshakhshir . portfolio</p>
-    <a href="#home" class="back-top" aria-label="Back to top">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </div>
-</footer>
 
 <script>
   const header = document.getElementById('siteHeader');
@@ -973,18 +1011,6 @@
     }
   });
 
-  const contactSection = document.getElementById('contact');
-  document.querySelectorAll('a[href="#contact"]').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (contactSection.hasAttribute('hidden')) {
-        contactSection.removeAttribute('hidden');
-        contactSection.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        contactSection.setAttribute('hidden', '');
-      }
-    });
-  });
 
   const burger = document.getElementById('burger');
   const navLinks = document.getElementById('navLinks');
@@ -1069,47 +1095,6 @@
       blob.style.transform = `translate(${x}px, ${y}px)`;
     });
   }
-
-  // EmailJS setup: create a free account at emailjs.com, add an Email Service
-  // (connect Gmail) and an Email Template, then paste the 3 IDs below.
-  const EMAILJS_PUBLIC_KEY = 'IA4mvdCFtpokS99nl';
-  const EMAILJS_SERVICE_ID = 'service_479gdvm';
-  const EMAILJS_TEMPLATE_ID = 'template_t7bd91s';
-
-  if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-  }
-
-  const contactForm = document.getElementById('contactForm');
-  const formNote = document.getElementById('formNote');
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = contactForm.querySelector('.submit-btn');
-    if(!contactForm.checkValidity()){
-      contactForm.reportValidity();
-      return;
-    }
-
-    if (EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
-      formNote.textContent = 'Email sending is not configured yet — add your EmailJS keys in the script.';
-      return;
-    }
-
-    const originalText = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-
-    emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm)
-      .then(() => {
-        btn.textContent = 'Sent ✓';
-        contactForm.reset();
-      })
-      .catch(() => {
-        btn.textContent = originalText;
-        btn.disabled = false;
-        formNote.textContent = 'Something went wrong sending your message — please try again or email directly.';
-      });
-  });
 </script>
 </body>
 </html>
