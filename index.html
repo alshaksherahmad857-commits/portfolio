@@ -1135,23 +1135,28 @@
   revealEls.forEach(el => io.observe(el));
 
   const stats = document.querySelectorAll('.stat b');
+  // Wait for the hero fade-in (.64s delay + .9s) before the first count, then replay on every re-entry.
+  const firstCountDelay = prefersReducedMotion ? 0 : 1200;
+  const pageStart = performance.now();
+  function countUp(el){
+    const target = parseInt(el.dataset.count, 10);
+    if(prefersReducedMotion){ el.textContent = target; return; }
+    cancelAnimationFrame(el._raf);
+    clearTimeout(el._wait);
+    el.textContent = 0;
+    const duration = 1800;
+    el._wait = setTimeout(() => {
+      const start = performance.now();
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3)));
+        if(t < 1) el._raf = requestAnimationFrame(tick);
+      };
+      el._raf = requestAnimationFrame(tick);
+    }, Math.max(0, firstCountDelay - (performance.now() - pageStart)));
+  }
   const statsIO = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        const el = entry.target;
-        const target = parseInt(el.dataset.count, 10);
-        let current = 0;
-        const step = Math.max(1, target / 30);
-        const tick = () => {
-          current += step;
-          if(current >= target){ el.textContent = target; return; }
-          el.textContent = Math.floor(current);
-          requestAnimationFrame(tick);
-        };
-        tick();
-        statsIO.unobserve(el);
-      }
-    });
+    entries.forEach(entry => { if(entry.isIntersecting) countUp(entry.target); });
   }, { threshold: 0.5 });
   stats.forEach(el => statsIO.observe(el));
 
