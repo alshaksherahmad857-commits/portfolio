@@ -294,14 +294,6 @@
   .service p{color:var(--muted);font-size:0.93rem;margin-bottom:14px;}
   .service small{display:block;color:var(--text-soft);font-size:0.8rem;}
 
-  .terminal{
-    background:#0a0f1a;font-family:Consolas,'Courier New',monospace;font-size:0.78rem;line-height:1.55;
-    color:#cbd5e1;padding:16px 18px;display:block;
-  }
-  .terminal .t-bar{display:flex;gap:6px;margin-bottom:10px;}
-  .terminal .t-bar i{width:9px;height:9px;border-radius:50%;background:#334155;}
-  .terminal .pr{color:#4ade80;}
-  .terminal .dim{color:#64748b;}
   .stat b{
     display:block;font-family:'Outfit',sans-serif;font-size:2rem;color:var(--heading);font-weight:700;
   }
@@ -516,6 +508,9 @@
   .live-info h3{font-size:clamp(1.7rem,2.6vw,2.2rem);margin-bottom:12px;}
   .live-info > p{color:var(--muted);font-size:0.98rem;margin-bottom:20px;}
   .feature-list{list-style:disc;padding-left:18px;display:grid;gap:6px;margin-bottom:22px;}
+  .case{display:grid;gap:14px;margin-bottom:22px;padding:18px 20px;border-left:2px solid var(--accent);background:var(--tag-bg);border-radius:0 10px 10px 0;}
+  .case dt{font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+  .case dd{color:var(--text-soft);font-size:0.93rem;}
   .feature-list li{color:var(--text-soft);font-size:0.93rem;}
   .live-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px;}
   .live-actions .btn{padding:13px 24px;}
@@ -804,7 +799,7 @@
         <a href="mailto:alshaksherahmad857@gmail.com" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6l9 7 9-7M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
       <div class="stats-row">
-        <div class="stat"><b>11</b><span>Real projects shipped</span></div>
+        <div class="stat"><b>2</b><span>Live client websites</span></div>
         <div class="stat"><b>4</b><span>Professional certificates</span></div>
         <div class="stat"><b>1</b><span>Graduation project led</span></div>
       </div>
@@ -831,7 +826,7 @@
     <div class="about-grid">
       <div class="about-card reveal">
         <p>I'm a Computer Science graduate from Applied Science Private University (ASU) in Jordan, graduated with a Good standing. My focus is mobile app development with Flutter, and I was Team Lead on my graduation project, Able+, a platform that helps people in Jordan find accessible services, charities, tutors, and community support for people with disabilities.</p>
-        <p>Beyond Able+, I've delivered full-stack websites and mobile apps for real use cases: a medical devices and supplies platform, a travel company's website, and a travel company's mobile app. I work with Clean Architecture and prefer organized, maintainable code over quick patch-jobs.</p>
+        <p>I'm also the co-founder of Rafaq Tec, a small software studio in Jordan. Beyond Able+, I've delivered full-stack websites and mobile apps for real use cases: a medical devices and supplies platform, a travel company's website, and a travel company's mobile app. I work with Clean Architecture and prefer organized, maintainable code over quick patch-jobs.</p>
         <div class="facts">
           <div class="fact">
             <div class="fact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M22 10L12 5 2 10l10 5 10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -1021,16 +1016,15 @@
         <div class="live-info">
           <div class="live-top">
             <span class="live-badge"><span class="dot"></span>Live</span>
-            <span class="p-label">Software Studio Website</span>
+            <span class="p-label">Co-founder · Software Studio</span>
           </div>
           <h3>Rafaq Tec</h3>
-          <p>The home of Rafaq Tec, a studio that designs and builds websites, mobile apps, AI and data products, from the first idea to launch.</p>
-          <ul class="feature-list">
-            <li>AI chat assistant that answers visitors' questions</li>
-            <li>Live client reviews stored in a Cloudflare D1 database</li>
-            <li>Full Arabic / English switch with right-to-left layout</li>
-            <li>Rich scroll animations, dark &amp; light themes, working contact form</li>
-          </ul>
+          <p>Rafaq Tec is the software studio I co-founded in Jordan. We design and build websites, mobile apps, and AI and data products for clients.</p>
+          <dl class="case">
+            <div><dt>My role</dt><dd>Co-founder. I built and run the studio's website.</dd></div>
+            <div><dt>What I did</dt><dd>Arabic / English site with an AI chat assistant, client reviews saved in a Cloudflare D1 database, and a working contact form. Deployed on Cloudflare Workers with our own domain.</dd></div>
+            <div><dt>Result</dt><dd>Live at rafaqtech.com on our own domain, set up on Google Search Console, with a contact form that sends client requests straight to our inbox.</dd></div>
+          </dl>
           <div class="tag-row">
             <span class="tag">HTML · CSS · JS</span>
             <span class="tag">Cloudflare Workers</span>
@@ -1040,10 +1034,6 @@
           <div class="live-actions">
             <a class="btn btn-primary" href="https://rafaqtech.com/" target="_blank" rel="noopener">Visit rafaqtech.com
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <a class="rafaq-credit" href="https://rafaqtech.com/" target="_blank" rel="noopener">
-              <img src="rafaq-mark.webp" alt="Rafaq Tec logo" width="153" height="160" loading="lazy">
-              <span><small>Designed &amp; built by</small><strong>Rafaq Tec</strong></span>
             </a>
           </div>
         </div>
@@ -1068,21 +1058,20 @@
         <div class="live-info">
           <div class="live-top">
             <span class="live-badge"><span class="dot"></span>Live</span>
-            <span class="p-label">Full-Stack E-commerce · Client Work</span>
+            <span class="p-label">Backend &amp; Deployment · Client Work</span>
           </div>
           <h3>ElderlyMed Devices &amp; Supplies</h3>
-          <p>A real online store for medical devices and supplies, live and serving customers across Jordan.</p>
-          <ul class="feature-list">
-            <li>Product catalogue with categories and search</li>
-            <li>Cart, checkout and instant order alerts</li>
-            <li>Admin dashboard with photo &amp; video upload</li>
-            <li>Arabic / English, SEO pages, HTTPS on its own Linux server</li>
-          </ul>
+          <p>An Arabic / English online store for a medical devices and supplies shop in Jordan, built through Rafaq Tec with two teammates.</p>
+          <dl class="case">
+            <div><dt>My role</dt><dd>Backend and deployment. My teammates did most of the front-end.</dd></div>
+            <div><dt>What I did</dt><dd>Built the Laravel + MySQL backend: products, categories, search, orders with instant order alerts, and an admin panel with photo and video upload. Set up the Linux server myself: Nginx, HTTPS, firewall, daily database backups, and a one-command update script.</dd></div>
+            <div><dt>Result</dt><dd>Live at elderlymedjo.com since October 2026 with the shop's real product catalogue, and set up on Google Search Console.</dd></div>
+          </dl>
           <div class="tag-row">
             <span class="tag">Laravel</span>
             <span class="tag">MySQL</span>
-            <span class="tag">Tailwind CSS</span>
-            <span class="tag">Nginx · VPS</span>
+            <span class="tag">Nginx · Linux VPS</span>
+            <span class="tag">Team of 3</span>
           </div>
           <div class="live-actions">
             <a class="btn btn-primary" href="https://elderlymedjo.com/" target="_blank" rel="noopener">Visit elderlymedjo.com
@@ -1090,7 +1079,7 @@
             </a>
             <a class="rafaq-credit" href="https://rafaqtech.com/" target="_blank" rel="noopener">
               <img src="rafaq-mark.webp" alt="Rafaq Tec logo" width="153" height="160" loading="lazy">
-              <span><small>Designed &amp; built by</small><strong>Rafaq Tec</strong></span>
+              <span><small>Built with</small><strong>Rafaq Tec</strong></span>
             </a>
           </div>
         </div>
@@ -1161,53 +1150,6 @@
         </div>
         <div class="mini-links">
           <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/newsproject" target="_blank" rel="noopener">GitHub ↗</a>
-        </div>
-      </div>
-      <div class="mini-card reveal">
-        <div class="mini-thumb"><img src="project-expense.jpg" alt="Expense Tracker app screenshot"></div>
-        <div class="p-label">Personal Project</div>
-        <h4>Expense Tracker</h4>
-        <p>A personal expense tracking app with category-based organization, using Cubit for state management.</p>
-        <div class="tag-row">
-          <span class="tag">Flutter</span>
-          <span class="tag">Cubit</span>
-        </div>
-        <div class="mini-links">
-          <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/Expense-Tracker" target="_blank" rel="noopener">GitHub ↗</a>
-        </div>
-      </div>
-      <div class="mini-card reveal">
-        <div class="mini-thumb"><img src="project-recipes.jpg" alt="Recipes App screenshot"></div>
-        <div class="p-label">Personal Project</div>
-        <h4>Recipes App</h4>
-        <p>A Flutter recipe browser with a list and detail view for exploring recipes and their ingredients.</p>
-        <div class="tag-row">
-          <span class="tag">Flutter</span>
-          <span class="tag">UI/UX</span>
-        </div>
-        <div class="mini-links">
-          <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/Recipes-App" target="_blank" rel="noopener">GitHub ↗</a>
-        </div>
-      </div>
-      <div class="mini-card reveal">
-        <div class="mini-thumb terminal" aria-hidden="true">
-          <div class="t-bar"><i></i><i></i><i></i></div>
-          <div><span class="pr">$</span> dart run student_manager</div>
-          <div class="dim">1) Add student  2) List  3) Update  4) Delete</div>
-          <div><span class="pr">&gt;</span> 2</div>
-          <div>#1  Sara   Computer Science  GPA 3.4</div>
-          <div>#2  Omar   Software Eng.     GPA 3.1</div>
-        </div>
-        <div class="p-label">Personal Project</div>
-        <h4>Student Manager CLI</h4>
-        <p>A command-line student management system built in pure Dart, applying CRUD operations, OOP, and SOLID principles.</p>
-        <div class="tag-row">
-          <span class="tag">Dart</span>
-          <span class="tag">CLI</span>
-          <span class="tag">OOP</span>
-        </div>
-        <div class="mini-links">
-          <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/student-manager-cli" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
     </div>
@@ -1370,7 +1312,7 @@
           <p>© 2026 Ahmad Alshakhshir. All Rights Reserved.</p>
           <a class="rafaq-credit" href="https://rafaqtech.com/" target="_blank" rel="noopener">
             <img src="rafaq-mark.webp" alt="Rafaq Tec logo" width="153" height="160" loading="lazy">
-            <span><small>Designed &amp; built by</small><strong>Rafaq Tec</strong></span>
+            <span><small>Co-founder of</small><strong>Rafaq Tec</strong></span>
           </a>
         </div>
       </footer>
