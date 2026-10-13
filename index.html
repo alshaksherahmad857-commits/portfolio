@@ -102,12 +102,39 @@
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;position:relative;z-index:1;}
   ::selection{background:var(--accent);color:var(--ink);}
 
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease, transform .8s ease;}
-  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1);}
+  .reveal.from-left{transform:translateX(-56px);}
+  .reveal.from-right{transform:translateX(56px);}
+  .reveal.zoom{transform:scale(.9) translateY(20px);}
+  .reveal.in{opacity:1;transform:none;}
   @media (prefers-reduced-motion: reduce){
-    .reveal{opacity:1;transform:none;transition:none;}
+    .reveal,.reveal.from-left,.reveal.from-right,.reveal.zoom{opacity:1;transform:none;transition:none;}
     *{animation:none !important;}
   }
+
+  /* Scroll progress bar */
+  .scroll-progress{
+    position:fixed;top:0;left:0;right:0;height:3px;z-index:200;
+    background:linear-gradient(90deg, var(--accent-dark), var(--accent), #ffd27a);
+    transform-origin:left center;transform:scaleX(0);
+    box-shadow:0 0 12px rgba(242,169,59,0.6);
+  }
+
+  /* Section headings: words rise in one after another */
+  .section-head h2 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:0.08em;margin-bottom:-0.08em;}
+  .section-head h2 .w > span{display:inline-block;transform:translateY(105%);transition:transform .8s cubic-bezier(.2,.7,.2,1);}
+  .section-head.in h2 .w > span{transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .section-head h2 .w > span{transform:none;transition:none;}
+  }
+
+  /* Cursor spotlight on cards */
+  .wrap .spot{
+    background-image:radial-gradient(420px circle at var(--mx,-999px) var(--my,-999px), rgba(242,169,59,0.13), transparent 45%);
+  }
+
+  /* Hero particle canvas */
+  .hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.7;}
 
   @keyframes hero-fade-up{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
   .hero-title,.role-line,.hero-actions,.stats-row,.hero-visual{
@@ -411,6 +438,15 @@
     transition:border-color .25s ease, color .25s ease;
   }
   .also-chips span:hover{border-color:var(--accent);color:var(--accent);}
+  .also-chips.marquee{
+    flex-wrap:nowrap;overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  }
+  .marquee-track{display:flex;gap:12px;flex-shrink:0;padding-right:12px;animation:marquee 38s linear infinite;}
+  .marquee-track span{white-space:nowrap;}
+  .also-chips.marquee:hover .marquee-track{animation-play-state:paused;}
+  @keyframes marquee{to{transform:translateX(-100%);}}
 
   .projects-list{display:flex;flex-direction:column;gap:26px;}
   .project-card{
@@ -444,7 +480,136 @@
   .project-link:hover{color:var(--accent);}
   .project-link:hover svg{transform:translate(4px,-4px);}
 
-  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:26px;}
+  /* Live websites — realistic device showcases */
+  .sub-head{display:flex;align-items:center;gap:14px;margin:70px 0 26px;}
+  .sub-head h3{font-size:1.5rem;}
+  .sub-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);}
+  .live-list{display:flex;flex-direction:column;gap:34px;}
+  @property --ang{syntax:'<angle>';initial-value:0deg;inherits:false;}
+  .showcase{
+    position:relative;isolation:isolate;border-radius:28px;
+    border:1px solid var(--line);padding:56px 52px;
+    display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:center;
+  }
+  .showcase::before{
+    content:'';position:absolute;inset:-1px;border-radius:inherit;z-index:-2;
+    background:conic-gradient(from var(--ang), transparent 0 60%, var(--brand) 76%, var(--accent) 84%, transparent 94%);
+    animation:spin-ang 7s linear infinite;opacity:0.4;transition:opacity .5s ease;
+  }
+  .showcase::after{
+    content:'';position:absolute;inset:0;border-radius:inherit;z-index:-1;overflow:hidden;
+    background-color:var(--bg-soft);
+    background-image:
+      radial-gradient(520px circle at var(--mx,-999px) var(--my,-999px), rgba(var(--brand-rgb),0.12), transparent 45%),
+      radial-gradient(600px circle at 25% 55%, rgba(var(--brand-rgb),0.16), transparent 60%);
+  }
+  .showcase:hover{border-color:transparent;}
+  .showcase:hover::before{opacity:1;}
+  .showcase.rev{grid-template-columns:1fr 1.2fr;}
+  .showcase.rev .stage{order:2;}
+  @keyframes spin-ang{to{--ang:360deg;}}
+
+  .stage{position:relative;padding:0 6% 9% 0;perspective:1400px;}
+  .stage-inner{position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.7,.2,1);will-change:transform;}
+  .stage::before{
+    content:'';position:absolute;left:4%;right:10%;bottom:2%;height:12%;z-index:-1;
+    background:radial-gradient(ellipse at center, rgba(0,0,0,0.55), transparent 70%);filter:blur(8px);
+  }
+
+  /* Laptop */
+  .laptop-lid{
+    position:relative;background:linear-gradient(160deg,#2c2d31,#0d0d0f 40%);
+    border-radius:16px 16px 6px 6px;padding:2.4% 2.4% 3.2%;
+    box-shadow:inset 0 0 0 1.5px #3a3b40, inset 0 0 0 5px #0a0a0b, 0 50px 80px -40px rgba(0,0,0,0.8);
+  }
+  .laptop-lid::before{
+    content:'';position:absolute;top:1%;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#4a5a7a,#0b0d12 70%);box-shadow:0 0 0 1.5px #1b1c20;
+  }
+  .screen{position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:4px;background:#000;}
+  .screen::after{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(125deg,rgba(255,255,255,0.10) 0%,rgba(255,255,255,0.03) 30%,transparent 46%);
+  }
+  .scroll-shot{
+    width:100%;height:100%;object-fit:cover;object-position:50% 0%;display:block;
+    animation:shot-scroll var(--dur,26s) ease-in-out infinite alternate;animation-play-state:paused;
+  }
+  .showcase.in .scroll-shot{animation-play-state:running;}
+  .showcase:hover .scroll-shot{animation-play-state:paused;}
+  @keyframes shot-scroll{0%,6%{object-position:50% 0%;}94%,100%{object-position:50% 100%;}}
+  .laptop-base{
+    position:relative;height:0;padding-bottom:3.2%;width:116%;margin-left:-8%;
+    background:linear-gradient(180deg,#e4e5e9 0%,#b9bbc1 45%,#8a8c93 100%);
+    border-radius:2px 2px 22px 22px / 2px 2px 14px 14px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.8), 0 18px 30px -14px rgba(0,0,0,0.7);
+  }
+  .laptop-base::before{
+    content:'';position:absolute;top:0;left:50%;width:15%;height:42%;transform:translateX(-50%);
+    background:linear-gradient(180deg,#9a9ca3,#c5c7cc);border-radius:0 0 10px 10px;
+  }
+
+  /* Phone */
+  .phone{
+    position:absolute;right:0;bottom:0;width:25%;z-index:2;
+    transform:translateZ(60px);
+    animation:phone-float 6s ease-in-out infinite;
+  }
+  .phone-body{
+    position:relative;aspect-ratio:9/19.5;border-radius:18% / 8.4%;padding:5.5%;
+    background:linear-gradient(160deg,#3a3b40,#121214 45%,#26272b);
+    box-shadow:inset 0 0 0 1.5px #55565c, inset 0 0 0 4px #0b0b0c, 0 40px 60px -24px rgba(0,0,0,0.85);
+  }
+  .phone-body::before{
+    content:'';position:absolute;top:6.2%;left:50%;width:30%;height:3.2%;transform:translateX(-50%);
+    background:#000;border-radius:999px;z-index:3;
+  }
+  .phone-body::after{
+    content:'';position:absolute;right:-2.5%;top:24%;width:2.5%;height:13%;border-radius:0 3px 3px 0;
+    background:linear-gradient(90deg,#2a2b2f,#55565c);
+  }
+  .phone-screen{position:relative;width:100%;height:100%;overflow:hidden;border-radius:13% / 6%;background:#000;}
+  .phone .scroll-shot{--dur:30s;animation-delay:-4s;}
+  @keyframes phone-float{0%,100%{transform:translateZ(60px) translateY(0);}50%{transform:translateZ(60px) translateY(-12px);}}
+
+  /* Info side */
+  .live-info .live-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+  .live-badge{
+    display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;
+    font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:#3ddc84;
+    background:rgba(61,220,132,0.1);border:1px solid rgba(61,220,132,0.3);
+  }
+  .live-badge .dot{width:7px;height:7px;border-radius:50%;background:#3ddc84;position:relative;}
+  .live-badge .dot::after{
+    content:'';position:absolute;inset:-4px;border-radius:50%;border:1.5px solid #3ddc84;
+    animation:pulse-ring 1.8s ease-out infinite;
+  }
+  :root[data-theme="light"] .live-badge{color:#178a4c;}
+  .live-info .p-label{font-size:0.8rem;color:var(--accent);font-weight:600;}
+  .live-info h3{font-size:clamp(1.7rem,2.6vw,2.2rem);margin-bottom:12px;}
+  .live-info > p{color:var(--muted);font-size:0.98rem;margin-bottom:20px;}
+  .feature-list{display:grid;gap:10px;margin-bottom:22px;}
+  .feature-list li{display:flex;gap:10px;align-items:flex-start;color:var(--text-soft);font-size:0.93rem;}
+  .feature-list li svg{flex-shrink:0;margin-top:3px;color:var(--brand);}
+  .live-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px;}
+  .live-actions .btn{padding:13px 24px;}
+
+  /* "Designed & built by Rafaq Tec" credit */
+  .rafaq-credit{
+    display:inline-flex;align-items:center;gap:12px;padding:8px 18px 8px 10px;border-radius:999px;
+    background:var(--paper);border:1px solid rgba(255,255,255,0.6);
+    box-shadow:0 10px 26px -12px rgba(0,0,0,0.55);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .rafaq-credit img{width:34px;height:auto;transition:transform .5s cubic-bezier(.2,.7,.2,1);}
+  .rafaq-credit small{display:block;font-size:0.7rem;color:#6b5f4a;line-height:1.2;}
+  .rafaq-credit strong{display:block;font-family:'Outfit',sans-serif;font-size:1.02rem;color:#14161c;line-height:1.15;}
+  .rafaq-credit:hover{transform:translateY(-3px);box-shadow:0 16px 32px -12px rgba(38,198,218,0.55);}
+  .rafaq-credit:hover img{transform:rotate(-12deg) scale(1.1);}
+  :root[data-theme="light"] .rafaq-credit{border-color:var(--line);background:#fff;}
+  .foot-credit{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+
+  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
   .mini-card{
     background:var(--bg-soft);border:1px solid var(--line);border-radius:18px;padding:28px;
     transition:transform .3s ease, border-color .3s ease;
@@ -487,6 +652,12 @@
   .cert-date{margin-left:auto;font-size:0.8rem;color:var(--accent-dark);font-weight:600;white-space:nowrap;}
 
   .timeline{position:relative;padding-left:30px;border-left:2px solid var(--line);display:flex;flex-direction:column;gap:44px;}
+  .timeline::before{
+    content:'';position:absolute;left:-2px;top:0;bottom:0;width:2px;
+    background:linear-gradient(180deg,var(--accent),var(--accent-dark));
+    transform-origin:top;transform:scaleY(var(--tl,0));
+    box-shadow:0 0 10px rgba(242,169,59,0.5);
+  }
   .t-item{position:relative;}
   .t-item::before{
     content:'';position:absolute;left:-38px;top:4px;width:14px;height:14px;border-radius:50%;
@@ -567,6 +738,8 @@
     .project-card{grid-template-columns:1fr;}
     .project-visual{height:320px;}
     .projects-grid{grid-template-columns:1fr;}
+    .showcase,.showcase.rev{grid-template-columns:1fr;gap:40px;padding:36px 26px;}
+    .showcase.rev .stage{order:0;}
     .cert-grid{grid-template-columns:1fr;}
     .contact-main{grid-template-columns:minmax(0,1fr);}
     .contact-card{padding:60px 36px 36px;}
@@ -586,6 +759,7 @@
 <body>
 
 <a href="#main" class="skip-link">Skip to content</a>
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <header id="siteHeader">
   <nav class="wrap">
@@ -621,6 +795,7 @@
 <main id="main">
 <section class="hero" id="home">
   <div class="hero-blob" id="heroBlob"></div>
+  <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div class="hero-text">
       <h1 class="hero-title">I'm <span class="name-accent">Ahmad Alshakhshir</span></h1>
@@ -633,7 +808,7 @@
         </a>
       </div>
       <div class="stats-row">
-        <div class="stat"><b data-count="10">0</b><span>Real projects shipped</span></div>
+        <div class="stat"><b data-count="11">0</b><span>Real projects shipped</span></div>
         <div class="stat"><b data-count="4">0</b><span>Professional certificates</span></div>
         <div class="stat"><b data-count="1">0</b><span>Graduation project led</span></div>
       </div>
@@ -662,7 +837,7 @@
       <p>In short — a Flutter developer who cares about building things that actually matter, not just interfaces that look good.</p>
     </div>
     <div class="about-grid">
-      <div class="about-card reveal">
+      <div class="about-card reveal from-left">
         <p>I'm a Computer Science graduate from Applied Science Private University (ASU) in Jordan, graduated with a Good standing. My focus is mobile app development with Flutter, and I took my graduation project seriously — as Team Lead on Able+, a platform that helps people in Jordan find accessible services, charities, tutors, and community support for people with disabilities.</p>
         <p>Beyond Able+, I've delivered full-stack websites and mobile apps for real use cases: a medical devices and supplies platform, a travel company's website, and a travel company's mobile app. I work with Clean Architecture and prefer organized, maintainable code over quick patch-jobs.</p>
         <div class="facts">
@@ -684,7 +859,7 @@
           </div>
         </div>
       </div>
-      <div class="about-photo reveal">
+      <div class="about-photo reveal from-right">
         <img src="about-presenting.jpg" alt="Ahmad presenting to an audience">
       </div>
     </div>
@@ -698,7 +873,7 @@
       <p>The tools and the skills behind my projects.</p>
     </div>
     <div class="skills-grid">
-      <div class="skill-group reveal">
+      <div class="skill-group spot reveal">
         <h3>Mobile</h3>
         <div class="skill-items">
           <div class="skill-item"><img src="icons/flutter.svg" alt="" loading="lazy"><span>Flutter</span></div>
@@ -708,7 +883,7 @@
           <div class="skill-item"><img src="icons/androidstudio.svg" alt="" loading="lazy"><span>Android Studio</span></div>
         </div>
       </div>
-      <div class="skill-group reveal">
+      <div class="skill-group spot reveal">
         <h3>Backend &amp; Data</h3>
         <div class="skill-items">
           <div class="skill-item"><img src="icons/dotnetcore.svg" alt="" loading="lazy"><span>ASP.NET Core</span></div>
@@ -718,7 +893,7 @@
           <div class="skill-item"><img src="icons/visualstudio.svg" alt="" loading="lazy"><span>Visual Studio</span></div>
         </div>
       </div>
-      <div class="skill-group reveal">
+      <div class="skill-group spot reveal">
         <h3>Programming &amp; Web</h3>
         <div class="skill-items">
           <div class="skill-item"><img src="icons/java.svg" alt="" loading="lazy"><span>Java</span></div>
@@ -728,7 +903,7 @@
           <div class="skill-item"><img src="icons/javascript.svg" alt="" loading="lazy"><span>JavaScript</span></div>
         </div>
       </div>
-      <div class="skill-group reveal">
+      <div class="skill-group spot reveal">
         <h3>Design &amp; Tools</h3>
         <div class="skill-items">
           <div class="skill-item"><img src="icons/figma.svg" alt="" loading="lazy"><span>Figma</span></div>
@@ -767,7 +942,7 @@
       <p>My graduation project, plus real client work across web and mobile.</p>
     </div>
     <div class="projects-list">
-      <div class="project-card reveal">
+      <div class="project-card spot reveal">
         <div class="project-visual"><img src="project-ableplus.jpg" alt="Able+ app login screen"></div>
         <div class="project-body">
           <div class="p-label">Graduation Project · Team Lead</div>
@@ -787,18 +962,112 @@
       </div>
     </div>
 
-    <div class="projects-grid">
-      <div class="mini-card reveal">
-        <div class="mini-thumb"><img src="project-elderlymed.jpg" alt="ElderlyMed Devices &amp; Supplies website screenshot"></div>
-        <div class="p-label">Jun 2025 – Nov 2025</div>
-        <h4>ElderlyMed Devices &amp; Supplies</h4>
-        <p>A full-stack website for medical devices and supplies. Built the user interfaces and connected the site to database functionality.</p>
-        <div class="tag-row">
-          <span class="tag">Full-Stack</span>
-          <span class="tag">Database</span>
+    <div class="sub-head reveal">
+      <h3>Live on the web</h3>
+      <span class="line"></span>
+    </div>
+    <div class="live-list">
+      <article class="showcase reveal zoom" style="--brand:#22d3ee;--brand-rgb:34,211,238;">
+        <a class="stage" href="https://rafaqtech.com/" target="_blank" rel="noopener" aria-label="Visit the Rafaq Tec live website">
+          <div class="stage-inner">
+            <div class="laptop">
+              <div class="laptop-lid">
+                <div class="screen"><img class="scroll-shot" src="shot-rafaqtech-desktop.jpg" alt="Rafaq Tec website on a laptop" loading="lazy" style="--dur:34s;"></div>
+              </div>
+              <div class="laptop-base"></div>
+            </div>
+            <div class="phone">
+              <div class="phone-body">
+                <div class="phone-screen"><img class="scroll-shot" src="shot-rafaqtech-mobile.jpg" alt="Rafaq Tec website on a phone" loading="lazy" style="--dur:38s;"></div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <div class="live-info">
+          <div class="live-top">
+            <span class="live-badge"><span class="dot"></span>LIVE</span>
+            <span class="p-label">Software Studio Website</span>
+          </div>
+          <h3>Rafaq Tec</h3>
+          <p>The home of Rafaq Tec, a studio that designs and builds websites, mobile apps, AI and data products — from the first idea to launch.</p>
+          <ul class="feature-list">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>AI chat assistant that answers visitors' questions</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Live client reviews stored in a Cloudflare D1 database</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Full Arabic / English switch with right-to-left layout</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Rich scroll animations, dark &amp; light themes, working contact form</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">HTML · CSS · JS</span>
+            <span class="tag">Cloudflare Workers</span>
+            <span class="tag">D1</span>
+            <span class="tag">SEO</span>
+          </div>
+          <div class="live-actions">
+            <a class="btn btn-primary" href="https://rafaqtech.com/" target="_blank" rel="noopener">Visit rafaqtech.com
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="rafaq-credit" href="https://rafaqtech.com/" target="_blank" rel="noopener">
+              <img src="rafaq-mark.webp" alt="Rafaq Tec logo" width="153" height="160" loading="lazy">
+              <span><small>Designed &amp; built by</small><strong>Rafaq Tec</strong></span>
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="mini-card reveal">
+      </article>
+
+      <article class="showcase rev reveal zoom" style="--brand:#2dd4bf;--brand-rgb:45,212,191;">
+        <a class="stage" href="https://elderlymedjo.com/" target="_blank" rel="noopener" aria-label="Visit the ElderlyMed live website">
+          <div class="stage-inner">
+            <div class="laptop">
+              <div class="laptop-lid">
+                <div class="screen"><img class="scroll-shot" src="shot-elderlymed-desktop.jpg" alt="ElderlyMed online store on a laptop" loading="lazy" style="--dur:18s;"></div>
+              </div>
+              <div class="laptop-base"></div>
+            </div>
+            <div class="phone">
+              <div class="phone-body">
+                <div class="phone-screen"><img class="scroll-shot" src="shot-elderlymed-mobile.jpg" alt="ElderlyMed online store on a phone" loading="lazy" style="--dur:22s;"></div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <div class="live-info">
+          <div class="live-top">
+            <span class="live-badge"><span class="dot"></span>LIVE</span>
+            <span class="p-label">Full-Stack E-commerce · Client Work</span>
+          </div>
+          <h3>ElderlyMed Devices &amp; Supplies</h3>
+          <p>A real online store for medical devices and supplies, live and serving customers across Jordan.</p>
+          <ul class="feature-list">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Product catalogue with categories and search</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Cart, checkout and instant order alerts</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Admin dashboard with photo &amp; video upload</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Arabic / English, SEO pages, HTTPS on its own Linux server</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">Laravel</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Tailwind CSS</span>
+            <span class="tag">Nginx · VPS</span>
+          </div>
+          <div class="live-actions">
+            <a class="btn btn-primary" href="https://elderlymedjo.com/" target="_blank" rel="noopener">Visit elderlymedjo.com
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="rafaq-credit" href="https://rafaqtech.com/" target="_blank" rel="noopener">
+              <img src="rafaq-mark.webp" alt="Rafaq Tec logo" width="153" height="160" loading="lazy">
+              <span><small>Designed &amp; built by</small><strong>Rafaq Tec</strong></span>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="sub-head reveal">
+      <h3>More projects</h3>
+      <span class="line"></span>
+    </div>
+    <div class="projects-grid">
+      <div class="mini-card spot reveal">
         <div class="mini-thumb"><img src="project-travel.jpg" alt="Travel Company website screenshot"></div>
         <div class="p-label">Aug 2024 – Sep 2025</div>
         <h4>Travel Company Website</h4>
@@ -808,7 +1077,7 @@
           <span class="tag">UX</span>
         </div>
       </div>
-      <div class="mini-card reveal">
+      <div class="mini-card spot reveal">
         <div class="mini-thumb"><img src="project-gotrip.jpg" alt="GoTrip travel app screenshot"></div>
         <div class="p-label">Jul 2025 – Sep 2025</div>
         <h4>GoTrip</h4>
@@ -818,7 +1087,7 @@
           <span class="tag">UX</span>
         </div>
       </div>
-      <div class="mini-card reveal">
+      <div class="mini-card spot reveal">
         <div class="mini-thumb"><img src="project-alrashed.jpg" alt="Al-Rashid Renewable Energy website screenshot"></div>
         <div class="p-label">Web Project</div>
         <h4>Al-Rashid Renewable Energy</h4>
@@ -831,7 +1100,7 @@
           <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/alrashed.com" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
-      <div class="mini-card reveal">
+      <div class="mini-card spot reveal">
         <div class="mini-thumb"><img src="project-admin-dashboard.jpg" alt="Admin dashboard screenshot" style="object-position:top left;"></div>
         <div class="p-label">Personal Project</div>
         <h4>Admin Dashboard</h4>
@@ -845,7 +1114,7 @@
           <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/projectAdmin" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
-      <div class="mini-card reveal">
+      <div class="mini-card spot reveal">
         <div class="mini-thumb phone-frame"><img src="project-newsapp.jpg" alt="Pulse News app screenshot"></div>
         <div class="p-label">Personal Project</div>
         <h4>News App</h4>
@@ -859,7 +1128,7 @@
           <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/newsproject" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
-      <div class="mini-card reveal">
+      <div class="mini-card spot reveal">
         <div class="mini-thumb"><img src="project-expense.jpg" alt="Expense Tracker app screenshot"></div>
         <div class="p-label">Personal Project</div>
         <h4>Expense Tracker</h4>
@@ -872,7 +1141,7 @@
           <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/Expense-Tracker" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
-      <div class="mini-card reveal">
+      <div class="mini-card spot reveal">
         <div class="mini-thumb"><img src="project-recipes.jpg" alt="Recipes App screenshot"></div>
         <div class="p-label">Personal Project</div>
         <h4>Recipes App</h4>
@@ -885,7 +1154,7 @@
           <a class="mini-link" href="https://github.com/alshaksherahmad857-commits/Recipes-App" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
-      <div class="mini-card reveal">
+      <div class="mini-card spot reveal">
         <div class="p-label">Personal Project</div>
         <h4>Student Manager CLI</h4>
         <p>A command-line student management system built in pure Dart, applying CRUD operations, OOP, and SOLID principles.</p>
@@ -910,7 +1179,7 @@
       <p>Professional certifications I've completed alongside my degree.</p>
     </div>
     <div class="cert-grid">
-      <div class="cert-card reveal">
+      <div class="cert-card reveal zoom">
         <a class="cert-thumb" href="https://www.credly.com/go/kgzF9cMP" target="_blank" rel="noopener">
           <img src="cert-cloud.jpg" alt="AWS Academy Cloud Foundations certificate">
         </a>
@@ -919,7 +1188,7 @@
           <div class="cert-date">Apr 2026</div>
         </div>
       </div>
-      <div class="cert-card reveal">
+      <div class="cert-card reveal zoom">
         <a class="cert-thumb" href="cert-cisco.jpg" target="_blank" rel="noopener">
           <img src="cert-cisco.jpg" alt="Cisco Data Analytics Essentials certificate">
         </a>
@@ -928,7 +1197,7 @@
           <div class="cert-date">Sep 2025</div>
         </div>
       </div>
-      <div class="cert-card reveal">
+      <div class="cert-card reveal zoom">
         <a class="cert-thumb" href="https://www.credly.com/go/hrN1OEq2" target="_blank" rel="noopener">
           <img src="cert-dataeng.jpg" alt="AWS Academy Data Engineering certificate">
         </a>
@@ -937,7 +1206,7 @@
           <div class="cert-date">Jun 2026</div>
         </div>
       </div>
-      <div class="cert-card reveal">
+      <div class="cert-card reveal zoom">
         <a class="cert-thumb" href="cert-azure.jpg" target="_blank" rel="noopener">
           <img src="cert-azure.jpg" alt="Microsoft Certified Azure Fundamentals certificate">
         </a>
@@ -982,25 +1251,6 @@
         </div>
         <p>Hands-on Flutter development training: REST API integration with Dio, Clean Architecture, offline/local storage strategies, Firebase services, and performance profiling.</p>
       </div>
-      <div class="t-item reveal">
-        <div class="t-date">Sep 2026 — Present</div>
-        <div class="t-head">
-          <div class="t-logo"><img src="coderz-logo.png" alt="Coderz Academy logo"></div>
-          <h4>FUNDEV X with AI Bootcamp — Coders Academy</h4>
-        </div>
-        <p>A full-stack and mobile bootcamp covering backend APIs, databases, real-time features, and professional Flutter development — with AI tools woven into the workflow.</p>
-        <div class="tag-row">
-          <span class="tag">ASP.NET Core</span>
-          <span class="tag">SQL Server</span>
-          <span class="tag">EF Core</span>
-          <span class="tag">JWT Auth</span>
-          <span class="tag">SignalR</span>
-          <span class="tag">Flutter</span>
-          <span class="tag">Push Notifications</span>
-          <span class="tag">Google Maps</span>
-          <span class="tag">AI Tools</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -1043,7 +1293,13 @@
             <span>Flutter Developer</span>
           </div>
         </div>
-        <p>© 2026 Ahmad Alshakhshir. All Rights Reserved.</p>
+        <div class="foot-credit">
+          <p>© 2026 Ahmad Alshakhshir. All Rights Reserved.</p>
+          <a class="rafaq-credit" href="https://rafaqtech.com/" target="_blank" rel="noopener">
+            <img src="rafaq-mark.webp" alt="Rafaq Tec logo" width="153" height="160" loading="lazy">
+            <span><small>Designed &amp; built by</small><strong>Rafaq Tec</strong></span>
+          </a>
+        </div>
       </footer>
     </div>
   </div>
@@ -1167,6 +1423,167 @@
       const x = (e.clientX / window.innerWidth - 0.5) * 40;
       const y = (e.clientY / window.innerHeight - 0.5) * 40;
       blob.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  }
+
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // Scroll progress bar + timeline line that draws itself while scrolling
+  const progressBar = document.getElementById('scrollProgress');
+  const timeline = document.querySelector('.timeline');
+  let scrollTicking = false;
+  function onScrollFrame(){
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+    if(timeline){
+      const r = timeline.getBoundingClientRect();
+      const p = (window.innerHeight * 0.75 - r.top) / r.height;
+      timeline.style.setProperty('--tl', Math.min(1, Math.max(0, p)).toFixed(3));
+    }
+    scrollTicking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if(!scrollTicking){ scrollTicking = true; requestAnimationFrame(onScrollFrame); }
+  }, { passive: true });
+  onScrollFrame();
+
+  // Split section headings into words so they rise in one by one
+  document.querySelectorAll('.section-head h2').forEach(h2 => {
+    let i = 0;
+    (function split(node){
+      [...node.childNodes].forEach(child => {
+        if(child.nodeType === 3){
+          const frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach(part => {
+            if(!part) return;
+            if(/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(part)); return; }
+            const w = document.createElement('span');
+            w.className = 'w';
+            const inner = document.createElement('span');
+            inner.textContent = part;
+            inner.style.transitionDelay = (0.08 + i++ * 0.07) + 's';
+            w.appendChild(inner);
+            frag.appendChild(w);
+          });
+          child.replaceWith(frag);
+        } else if(child.nodeType === 1){
+          split(child);
+        }
+      });
+    })(h2);
+  });
+
+  // "Also" chips become an endless marquee
+  const chips = document.querySelector('.also-chips');
+  if(chips && !prefersReducedMotion){
+    const track = document.createElement('div');
+    track.className = 'marquee-track';
+    track.append(...chips.children);
+    const copy = track.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    chips.append(track, copy);
+    chips.classList.add('marquee');
+  }
+
+  if(finePointer && !prefersReducedMotion){
+    // Cursor spotlight on cards
+    document.querySelectorAll('.spot, .showcase').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.removeProperty('--mx');
+        card.style.removeProperty('--my');
+      });
+    });
+
+    // 3D tilt on the live-site device mockups
+    document.querySelectorAll('.showcase').forEach(card => {
+      const browser = card.querySelector('.stage-inner');
+      card.addEventListener('mousemove', (e) => {
+        const r = browser.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        browser.style.transform = `perspective(900px) rotateY(${x * 9}deg) rotateX(${-y * 7}deg)`;
+      });
+      card.addEventListener('mouseleave', () => { browser.style.transform = ''; });
+    });
+
+    // Magnetic buttons
+    document.querySelectorAll('.btn-primary, .hire-btn').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) * 0.25;
+        const y = (e.clientY - r.top - r.height / 2) * 0.35;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+    });
+  }
+
+  // Hero particle network
+  const canvas = document.getElementById('heroCanvas');
+  if(canvas && !prefersReducedMotion){
+    const ctx = canvas.getContext('2d');
+    const hero = document.getElementById('home');
+    const mouse = { x: -9999, y: -9999 };
+    let w, h, dpr, particles = [], running = false, rafId;
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = hero.clientWidth; h = hero.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.round(Math.min(70, (w * h) / 22000));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
+        r: Math.random() * 1.6 + 0.6
+      }));
+    }
+    function draw(){
+      ctx.clearRect(0, 0, w, h);
+      const light = document.documentElement.getAttribute('data-theme') === 'light';
+      const rgb = light ? '201,121,30' : '242,169,59';
+      for(const p of particles){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < 0 || p.x > w) p.vx *= -1;
+        if(p.y < 0 || p.y > h) p.vy *= -1;
+        const dx = p.x - mouse.x, dy = p.y - mouse.y, d = Math.hypot(dx, dy);
+        if(d < 120 && d > 0){ p.x += dx / d * 1.2; p.y += dy / d * 1.2; }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${rgb},0.75)`;
+        ctx.fill();
+      }
+      for(let i = 0; i < particles.length; i++){
+        for(let j = i + 1; j < particles.length; j++){
+          const a = particles[i], b = particles[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if(d < 130){
+            ctx.strokeStyle = `rgba(${rgb},${(1 - d / 130) * 0.28})`;
+            ctx.lineWidth = 0.8;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+      }
+      rafId = requestAnimationFrame(draw);
+    }
+    function start(){ if(!running){ running = true; rafId = requestAnimationFrame(draw); } }
+    function stop(){ running = false; cancelAnimationFrame(rafId); }
+    resize();
+    window.addEventListener('resize', resize);
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    });
+    hero.addEventListener('mouseleave', () => { mouse.x = mouse.y = -9999; });
+    new IntersectionObserver(([entry]) => {
+      entry.isIntersecting && !document.hidden ? start() : stop();
+    }).observe(hero);
+    document.addEventListener('visibilitychange', () => {
+      document.hidden ? stop() : (hero.getBoundingClientRect().bottom > 0 && start());
     });
   }
 </script>
