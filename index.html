@@ -107,17 +107,19 @@
 
 
   @keyframes hero-fade-up{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
-  .hero-title,.role-line,.hero-actions,.stats-row,.hero-visual{
+  .hero-title,.role-line,.hero .desc,.hero-actions,.hero-social,.stats-row,.hero-visual{
     opacity:0;
     animation:hero-fade-up .9s ease forwards;
   }
   .hero-title{animation-delay:.1s;}
   .role-line{animation-delay:.28s;}
+  .hero .desc{animation-delay:.37s;}
   .hero-actions{animation-delay:.46s;}
+  .hero-social{animation-delay:.55s;}
   .stats-row{animation-delay:.64s;}
   .hero-visual{animation-delay:.32s;}
   @media (prefers-reduced-motion: reduce){
-    .hero-title,.role-line,.hero-actions,.stats-row,.hero-visual{opacity:1;}
+    .hero-title,.role-line,.hero .desc,.hero-actions,.hero-social,.stats-row,.hero-visual{opacity:1;}
   }
 
   .skills-grid .skill-group:nth-child(1){transition-delay:.03s;}
@@ -255,7 +257,7 @@
     margin-bottom:36px;
     font-size:1.02rem;
   }
-  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:22px;}
   .hero-phone{color:var(--muted);font-size:0.88rem;margin-bottom:44px;}
   .hero-phone a{color:var(--accent);font-weight:600;}
   .btn{
@@ -277,6 +279,29 @@
   .btn-ghost:hover svg{transform:translateY(2px);}
 
   .stats-row{display:flex;gap:44px;flex-wrap:wrap;}
+  .hero-social{display:flex;gap:10px;margin-bottom:40px;}
+  .hero-social a{
+    width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);color:var(--muted);transition:color .2s ease, border-color .2s ease;
+  }
+  .hero-social a:hover{color:var(--heading);border-color:var(--accent);}
+
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .service{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px;transition:border-color .25s ease;}
+  .service:hover{border-color:var(--accent);}
+  .service-ic{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--tag-bg);border:1px solid var(--line);color:var(--accent);margin-bottom:18px;}
+  .service h3{font-size:1.15rem;margin-bottom:8px;}
+  .service p{color:var(--muted);font-size:0.93rem;margin-bottom:14px;}
+  .service small{display:block;color:var(--text-soft);font-size:0.8rem;}
+
+  .terminal{
+    background:#0a0f1a;font-family:Consolas,'Courier New',monospace;font-size:0.78rem;line-height:1.55;
+    color:#cbd5e1;padding:16px 18px;display:block;
+  }
+  .terminal .t-bar{display:flex;gap:6px;margin-bottom:10px;}
+  .terminal .t-bar i{width:9px;height:9px;border-radius:50%;background:#334155;}
+  .terminal .pr{color:#4ade80;}
+  .terminal .dim{color:#64748b;}
   .stat b{
     display:block;font-family:'Outfit',sans-serif;font-size:2rem;color:var(--heading);font-weight:700;
   }
@@ -696,6 +721,7 @@
     .hero-visual{order:-1;margin-bottom:20px;max-width:320px;margin-inline:auto;}
     .about-grid{grid-template-columns:1fr;}
     .skills-grid{grid-template-columns:repeat(2,1fr);}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
     .project-card{grid-template-columns:1fr;}
     .project-visual{height:320px;}
     .projects-grid{grid-template-columns:1fr;}
@@ -707,6 +733,7 @@
   }
   @media (max-width:600px){
     .skills-grid{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:1fr;}
   }
   @media (max-width:720px){
     .stats-row{gap:26px;}
@@ -730,6 +757,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#home" class="active">Home</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#certificates">Certificates</a></li>
@@ -760,10 +788,20 @@
       <div class="role-line">
         <span id="typed">Flutter &amp; Full-Stack Developer</span>
       </div>
+      <p class="desc">I build Flutter apps, websites and online stores for real clients in Jordan. Two of them are live online right now.</p>
       <div class="hero-actions">
-        <a href="https://github.com/alshaksherahmad857-commits?tab=repositories" target="_blank" rel="noopener" class="btn btn-primary">View My Work
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <a href="#projects" class="btn btn-primary">View My Work
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
+        <a href="Ahmad_Alshakhshir_CV.pdf" download class="btn btn-ghost">Download CV
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="hero-social">
+        <a href="https://github.com/alshaksherahmad857-commits" target="_blank" rel="noopener" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.22-3.37-1.22-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.05a9.29 9.29 0 015 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0022 12.25C22 6.58 17.52 2 12 2z"/></svg></a>
+        <a href="https://www.linkedin.com/in/ahmad-alshakhshir-2a911a2aa" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.25h4.5V23H.24V8.25zM8.5 8.25h4.31v2.02h.06c.6-1.14 2.08-2.34 4.28-2.34 4.58 0 5.43 3.02 5.43 6.94V23h-4.5v-6.89c0-1.64-.03-3.75-2.29-3.75-2.29 0-2.64 1.79-2.64 3.63V23H8.5V8.25z"/></svg></a>
+        <a href="https://wa.me/962790293429" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.42 9.42 0 01-1.44-5.02c0-5.2 4.23-9.43 9.44-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 012.76 6.67c0 5.2-4.24 9.42-9.46 9.42zm8.03-17.46A11.27 11.27 0 0012.05.7C5.79.7.7 5.79.7 12.04c0 2 .52 3.95 1.52 5.67L.6 23.6l6.04-1.58a11.33 11.33 0 005.41 1.38h.01c6.25 0 11.34-5.09 11.35-11.34 0-3.03-1.18-5.88-3.33-8.02z"/></svg></a>
+        <a href="mailto:alshaksherahmad857@gmail.com" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6l9 7 9-7M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
       <div class="stats-row">
         <div class="stat"><b>11</b><span>Real projects shipped</span></div>
@@ -811,10 +849,53 @@
             <div class="fact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 17l6-6-6-6M12 19h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div><b>Core Stack</b><span>Flutter &amp; Dart</span></div>
           </div>
+          <div class="fact">
+            <div class="fact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" stroke="currentColor" stroke-width="2"/></svg></div>
+            <div><b>Languages</b><span>Arabic (native), English</span></div>
+          </div>
+          <div class="fact">
+            <div class="fact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1zM16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><b>Open to</b><span>Full-time roles &amp; freelance</span></div>
+          </div>
         </div>
       </div>
       <div class="about-photo reveal">
         <img src="about-presenting.jpg" alt="Ahmad presenting to an audience">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>What I can build for you</h2>
+      <p>The kind of work I take on for companies and clients.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service reveal">
+        <div class="service-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="6" y="2" width="12" height="20" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Mobile apps</h3>
+        <p>Android and iOS apps from one Flutter codebase, with login, APIs, offline caching and notifications.</p>
+        <small>Flutter · Dart · Firebase · Supabase</small>
+      </div>
+      <div class="service reveal">
+        <div class="service-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Websites &amp; online stores</h3>
+        <p>Company websites and e-commerce stores in Arabic and English, fast on phones and ready for Google.</p>
+        <small>HTML · CSS · JS · Laravel · Tailwind</small>
+      </div>
+      <div class="service reveal">
+        <div class="service-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="1.8"/></svg></div>
+        <h3>Backend &amp; APIs</h3>
+        <p>REST APIs, databases and admin panels, plus deploying them to a real server with HTTPS.</p>
+        <small>ASP.NET Core · Laravel · SQL · MySQL</small>
+      </div>
+      <div class="service reveal">
+        <div class="service-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 100 18c.9 0 1.5-.7 1.5-1.5 0-.4-.15-.75-.4-1-.25-.27-.4-.62-.4-1 0-.83.67-1.5 1.5-1.5H16a5 5 0 005-5c0-4.4-4-8-9-8z" stroke="currentColor" stroke-width="1.8"/><circle cx="7.5" cy="11.5" r="1.2" fill="currentColor"/><circle cx="10.5" cy="7.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="8" r="1.2" fill="currentColor"/></svg></div>
+        <h3>UI/UX design</h3>
+        <p>Screens and flows designed in Figma before any code, so you see the app before it is built.</p>
+        <small>Figma · Prototypes · Responsive UI</small>
       </div>
     </div>
   </div>
@@ -1109,6 +1190,14 @@
         </div>
       </div>
       <div class="mini-card reveal">
+        <div class="mini-thumb terminal" aria-hidden="true">
+          <div class="t-bar"><i></i><i></i><i></i></div>
+          <div><span class="pr">$</span> dart run student_manager</div>
+          <div class="dim">1) Add student  2) List  3) Update  4) Delete</div>
+          <div><span class="pr">&gt;</span> 2</div>
+          <div>#1  Sara   Computer Science  GPA 3.4</div>
+          <div>#2  Omar   Software Eng.     GPA 3.1</div>
+        </div>
         <div class="p-label">Personal Project</div>
         <h4>Student Manager CLI</h4>
         <p>A command-line student management system built in pure Dart, applying CRUD operations, OOP, and SOLID principles.</p>
@@ -1250,6 +1339,10 @@
           <a href="mailto:alshaksherahmad857@gmail.com" class="contact-row">
             <span class="contact-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6l9 7 9-7M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span>alshaksherahmad857@gmail.com</span>
+          </a>
+          <a href="https://wa.me/962790293429" target="_blank" rel="noopener" class="contact-row">
+            <span class="contact-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.42 9.42 0 01-1.44-5.02c0-5.2 4.23-9.43 9.44-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 012.76 6.67c0 5.2-4.24 9.42-9.46 9.42zm8.03-17.46A11.27 11.27 0 0012.05.7C5.79.7.7 5.79.7 12.04c0 2 .52 3.95 1.52 5.67L.6 23.6l6.04-1.58a11.33 11.33 0 005.41 1.38h.01c6.25 0 11.34-5.09 11.35-11.34 0-3.03-1.18-5.88-3.33-8.02z"/></svg></span>
+            <span>WhatsApp me</span>
           </a>
           <a href="tel:+962790293429" class="contact-row">
             <span class="contact-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
