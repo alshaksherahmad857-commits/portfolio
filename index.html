@@ -11,22 +11,22 @@
     } catch (e) {}
   })();
 </script>
-<title>Ahmad Alshakhshir — Flutter Developer</title>
-<meta name="description" content="Ahmad Alshakhshir — Computer Science graduate and Flutter developer building mobile apps and full-stack products, from the Able+ accessibility platform to real client work.">
+<title>Ahmad Alshakhshir | Flutter Developer</title>
+<meta name="description" content="Ahmad Alshakhshir, Computer Science graduate and Flutter developer building mobile apps and full-stack products, from the Able+ accessibility platform to real client work.">
 
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alshaksherahmad857-commits.github.io/portfolio/">
-<meta property="og:title" content="Ahmad Alshakhshir — Flutter Developer">
-<meta property="og:description" content="Computer Science graduate building Flutter apps and full-stack products that solve real problems — from Able+ to real client work.">
+<meta property="og:title" content="Ahmad Alshakhshir | Flutter Developer">
+<meta property="og:description" content="Computer Science graduate building Flutter apps and full-stack products that solve real problems, from Able+ to real client work.">
 <meta property="og:image" content="https://alshaksherahmad857-commits.github.io/portfolio/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Ahmad Alshakhshir — Flutter Developer">
+<meta name="twitter:title" content="Ahmad Alshakhshir | Flutter Developer">
 <meta name="twitter:description" content="Computer Science graduate building Flutter apps and full-stack products that solve real problems.">
 <meta name="twitter:image" content="https://alshaksherahmad857-commits.github.io/portfolio/og-image.jpg">
 
@@ -112,7 +112,6 @@
     *{animation:none !important;}
   }
 
-  /* Scroll progress bar */
   .scroll-progress{
     position:fixed;top:0;left:0;right:0;height:3px;z-index:200;
     background:linear-gradient(90deg, var(--accent-dark), var(--accent), #ffd27a);
@@ -120,7 +119,6 @@
     box-shadow:0 0 12px rgba(242,169,59,0.6);
   }
 
-  /* Section headings: words rise in one after another */
   .section-head h2 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:0.08em;margin-bottom:-0.08em;}
   .section-head h2 .w > span{display:inline-block;transform:translateY(105%);transition:transform .8s cubic-bezier(.2,.7,.2,1);}
   .section-head.in h2 .w > span{transform:translateY(0);}
@@ -128,12 +126,10 @@
     .section-head h2 .w > span{transform:none;transition:none;}
   }
 
-  /* Cursor spotlight on cards */
   .wrap .spot{
     background-image:radial-gradient(420px circle at var(--mx,-999px) var(--my,-999px), rgba(242,169,59,0.13), transparent 45%);
   }
 
-  /* Hero particle canvas */
   .hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.7;}
 
   @keyframes hero-fade-up{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
@@ -480,7 +476,6 @@
   .project-link:hover{color:var(--accent);}
   .project-link:hover svg{transform:translate(4px,-4px);}
 
-  /* Live websites — realistic device showcases */
   .sub-head{display:flex;align-items:center;gap:14px;margin:70px 0 26px;}
   .sub-head h3{font-size:1.5rem;}
   .sub-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);}
@@ -516,7 +511,6 @@
     background:radial-gradient(ellipse at center, rgba(0,0,0,0.55), transparent 70%);filter:blur(8px);
   }
 
-  /* Laptop */
   .laptop-lid{
     position:relative;background:linear-gradient(160deg,#2c2d31,#0d0d0f 40%);
     border-radius:16px 16px 6px 6px;padding:2.4% 2.4% 3.2%;
@@ -549,7 +543,6 @@
     background:linear-gradient(180deg,#9a9ca3,#c5c7cc);border-radius:0 0 10px 10px;
   }
 
-  /* Phone */
   .phone{
     position:absolute;right:0;bottom:0;width:25%;z-index:2;
     transform:translateZ(60px);
@@ -572,7 +565,6 @@
   .phone .scroll-shot{--dur:30s;animation-delay:-4s;}
   @keyframes phone-float{0%,100%{transform:translateZ(60px) translateY(0);}50%{transform:translateZ(60px) translateY(-12px);}}
 
-  /* Info side */
   .live-info .live-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
   .live-badge{
     display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;
@@ -594,7 +586,6 @@
   .live-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px;}
   .live-actions .btn{padding:13px 24px;}
 
-  /* "Designed & built by Rafaq Tec" credit */
   .rafaq-credit{
     display:inline-flex;align-items:center;gap:12px;padding:8px 18px 8px 10px;border-radius:999px;
     background:var(--paper);border:1px solid rgba(255,255,255,0.6);
@@ -637,7 +628,6 @@
   .mini-link{font-weight:600;color:var(--heading);font-size:0.86rem;display:inline-flex;align-items:center;gap:6px;}
   .mini-link:hover{color:var(--accent);}
 
-  /* Degree showcase — documents fan out like papers on a desk */
   .degree{
     position:relative;display:grid;grid-template-columns:0.9fr 1.1fr;gap:40px;align-items:center;
     background:var(--bg);border:1px solid var(--line);border-radius:28px;padding:52px 48px;margin-bottom:56px;
@@ -687,7 +677,6 @@
   .degree.in .doc.d2:hover,.degree.in .doc.d2:focus-visible{transform:translate(-50%,-56%) rotate(0deg) scale(1.06);}
   .degree.in .doc.d3:hover,.degree.in .doc.d3:focus-visible{transform:translate(12%,-54%) rotate(5deg) scale(1.08);}
 
-  /* Spinning "graduated" seal */
   .seal{
     position:absolute;right:4%;bottom:2%;width:118px;height:118px;z-index:6;pointer-events:none;
     opacity:0;transform:scale(.4) rotate(-40deg);
@@ -703,7 +692,6 @@
   .seal-core b{font-size:1.2rem;font-weight:800;}
   .seal-core span{font-size:0.62rem;font-weight:700;letter-spacing:0.08em;margin-top:3px;}
 
-  /* Lightbox */
   .lightbox{
     position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:24px;
     background:rgba(8,6,4,0.86);backdrop-filter:blur(8px);
@@ -940,11 +928,11 @@
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Who is <span class="hi">Ahmad?</span></h2>
-      <p>In short — a Flutter developer who cares about building things that actually matter, not just interfaces that look good.</p>
+      <p>Flutter developer from Jordan. I build mobile apps and websites for real clients.</p>
     </div>
     <div class="about-grid">
       <div class="about-card reveal from-left">
-        <p>I'm a Computer Science graduate from Applied Science Private University (ASU) in Jordan, graduated with a Good standing. My focus is mobile app development with Flutter, and I took my graduation project seriously — as Team Lead on Able+, a platform that helps people in Jordan find accessible services, charities, tutors, and community support for people with disabilities.</p>
+        <p>I'm a Computer Science graduate from Applied Science Private University (ASU) in Jordan, graduated with a Good standing. My focus is mobile app development with Flutter, and I was Team Lead on my graduation project, Able+, a platform that helps people in Jordan find accessible services, charities, tutors, and community support for people with disabilities.</p>
         <p>Beyond Able+, I've delivered full-stack websites and mobile apps for real use cases: a medical devices and supplies platform, a travel company's website, and a travel company's mobile app. I work with Clean Architecture and prefer organized, maintainable code over quick patch-jobs.</p>
         <div class="facts">
           <div class="fact">
@@ -957,7 +945,7 @@
           </div>
           <div class="fact">
             <div class="fact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 15a6 6 0 100-12 6 6 0 000 12z" stroke="currentColor" stroke-width="2"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div><b>Standing</b><span>Bachelor's in CS — Good</span></div>
+            <div><b>Standing</b><span>Bachelor's in CS, Good</span></div>
           </div>
           <div class="fact">
             <div class="fact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 17l6-6-6-6M12 19h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -1052,7 +1040,7 @@
         <div class="project-visual"><img src="project-ableplus.jpg" alt="Able+ app login screen"></div>
         <div class="project-body">
           <div class="p-label">Graduation Project · Team Lead</div>
-          <h3>Able+ — Accessibility Services Platform</h3>
+          <h3>Able+: Accessibility Services Platform</h3>
           <p>A Flutter app that helps people in Jordan find accessible services, charities, tutors, and community support for people with disabilities. I led a four-person team, managing tasks and progress while contributing to front-end development and UI design.</p>
           <div class="tag-row">
             <span class="tag">Flutter</span>
@@ -1095,7 +1083,7 @@
             <span class="p-label">Software Studio Website</span>
           </div>
           <h3>Rafaq Tec</h3>
-          <p>The home of Rafaq Tec, a studio that designs and builds websites, mobile apps, AI and data products — from the first idea to launch.</p>
+          <p>The home of Rafaq Tec, a studio that designs and builds websites, mobile apps, AI and data products, from the first idea to launch.</p>
           <ul class="feature-list">
             <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>AI chat assistant that answers visitors' questions</li>
             <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Live client reviews stored in a Cloudflare D1 database</li>
@@ -1177,7 +1165,7 @@
         <div class="mini-thumb"><img src="project-travel.jpg" alt="Travel Company website screenshot"></div>
         <div class="p-label">Aug 2024 – Sep 2025</div>
         <h4>Travel Company Website</h4>
-        <p>A travel company website with pages for services, destinations, and customer information — front-end pages, database features, and improved UX.</p>
+        <p>A travel company website with pages for services, destinations, and customer information. Front-end pages, database features, and improved UX.</p>
         <div class="tag-row">
           <span class="tag">Full-Stack</span>
           <span class="tag">UX</span>
@@ -1187,7 +1175,7 @@
         <div class="mini-thumb"><img src="project-gotrip.jpg" alt="GoTrip travel app screenshot"></div>
         <div class="p-label">Jul 2025 – Sep 2025</div>
         <h4>GoTrip</h4>
-        <p>A travel deals app/website — browse destinations, sign up, and log in. Designed the screens and navigation, focused on responsive, simple UX.</p>
+        <p>A travel deals app/website to browse destinations, sign up, and log in. Designed the screens and navigation, focused on responsive, simple UX.</p>
         <div class="tag-row">
           <span class="tag">Travel</span>
           <span class="tag">UX</span>
@@ -1372,10 +1360,10 @@
     </div>
     <div class="timeline">
       <div class="t-item reveal">
-        <div class="t-date">Mar 2023 — Sep 2026</div>
+        <div class="t-date">Mar 2023 - Sep 2026</div>
         <div class="t-head">
           <div class="t-logo"><img src="asu-logo.png" alt="ASU logo"></div>
-          <h4>Bachelor's in Computer Science — ASU</h4>
+          <h4>Bachelor's in Computer Science, ASU</h4>
         </div>
         <p>Applied Science Private University, Faculty of Information Technology. Graduated with a Good standing, with graduation project Able+ supervised by Dr. Mohammed Khader.</p>
       </div>
@@ -1383,15 +1371,15 @@
         <div class="t-date">May 28, 2025</div>
         <div class="t-head">
           <div class="t-logo"><img src="asu-logo.png" alt="ASU logo"></div>
-          <h4>UI &amp; UX Design Competition v5 — ASU</h4>
+          <h4>UI &amp; UX Design Competition v5, ASU</h4>
         </div>
         <p>Took part in the university's UI &amp; UX Design v5 competition.</p>
       </div>
       <div class="t-item reveal">
-        <div class="t-date">Jul — Sep 2026</div>
+        <div class="t-date">Jul - Sep 2026</div>
         <div class="t-head">
           <div class="t-logo"><img src="kayan-logo.png" alt="Kayan HR logo"></div>
-          <h4>Field Training — Kayan HR</h4>
+          <h4>Field Training, Kayan HR</h4>
         </div>
         <p>Hands-on Flutter development training: REST API integration with Dio, Clean Architecture, offline/local storage strategies, Firebase services, and performance profiling.</p>
       </div>
@@ -1544,7 +1532,6 @@
   revealEls.forEach(el => io.observe(el));
 
   const stats = document.querySelectorAll('.stat b');
-  // Wait for the hero fade-in (.64s delay + .9s) before the first count, then replay on every re-entry.
   const firstCountDelay = prefersReducedMotion ? 0 : 1200;
   const pageStart = performance.now();
   function countUp(el){
@@ -1580,7 +1567,6 @@
 
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  // Scroll progress bar + timeline line that draws itself while scrolling
   const progressBar = document.getElementById('scrollProgress');
   const timeline = document.querySelector('.timeline');
   let scrollTicking = false;
@@ -1599,7 +1585,6 @@
   }, { passive: true });
   onScrollFrame();
 
-  // Split section headings into words so they rise in one by one
   document.querySelectorAll('.section-head h2').forEach(h2 => {
     let i = 0;
     (function split(node){
@@ -1625,7 +1610,6 @@
     })(h2);
   });
 
-  // "Also" chips become an endless marquee
   const chips = document.querySelector('.also-chips');
   if(chips && !prefersReducedMotion){
     const track = document.createElement('div');
@@ -1638,7 +1622,6 @@
   }
 
   if(finePointer && !prefersReducedMotion){
-    // Cursor spotlight on cards
     document.querySelectorAll('.spot, .showcase').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const r = card.getBoundingClientRect();
@@ -1651,7 +1634,6 @@
       });
     });
 
-    // 3D tilt on the live-site device mockups
     document.querySelectorAll('.showcase').forEach(card => {
       const browser = card.querySelector('.stage-inner');
       card.addEventListener('mousemove', (e) => {
@@ -1663,7 +1645,6 @@
       card.addEventListener('mouseleave', () => { browser.style.transform = ''; });
     });
 
-    // Magnetic buttons
     document.querySelectorAll('.btn-primary, .hire-btn').forEach(btn => {
       btn.addEventListener('mousemove', (e) => {
         const r = btn.getBoundingClientRect();
@@ -1675,7 +1656,6 @@
     });
   }
 
-  // Hero particle network
   const canvas = document.getElementById('heroCanvas');
   if(canvas && !prefersReducedMotion){
     const ctx = canvas.getContext('2d');
@@ -1739,7 +1719,6 @@
     });
   }
 
-  // Degree documents: click to open full size, arrows/keys to browse
   const docs = [...document.querySelectorAll('.doc')].sort((a, b) => a.dataset.index - b.dataset.index);
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lbImg');
