@@ -637,6 +637,112 @@
   .mini-link{font-weight:600;color:var(--heading);font-size:0.86rem;display:inline-flex;align-items:center;gap:6px;}
   .mini-link:hover{color:var(--accent);}
 
+  /* Degree showcase — documents fan out like papers on a desk */
+  .degree{
+    position:relative;display:grid;grid-template-columns:0.9fr 1.1fr;gap:40px;align-items:center;
+    background:var(--bg);border:1px solid var(--line);border-radius:28px;padding:52px 48px;margin-bottom:56px;
+    overflow:hidden;isolation:isolate;
+  }
+  .degree::before{
+    content:'';position:absolute;right:-120px;top:-120px;width:520px;height:520px;border-radius:50%;z-index:-1;
+    background:radial-gradient(circle, rgba(242,169,59,0.18), transparent 65%);
+    animation:glow-pulse 8s ease-in-out infinite;
+  }
+  .degree-info .p-label{font-size:0.8rem;color:var(--accent);font-weight:600;margin-bottom:10px;display:block;}
+  .degree-info h3{font-size:clamp(1.7rem,2.8vw,2.3rem);margin-bottom:14px;}
+  .degree-info > p{color:var(--muted);margin-bottom:24px;}
+  .degree-facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:26px;}
+  .degree-facts div{padding:14px 16px;border-radius:14px;background:var(--tag-bg);border:1px solid var(--line);}
+  .degree-facts b{display:block;font-family:'Outfit',sans-serif;font-size:1.05rem;color:var(--heading);}
+  .degree-facts span{font-size:0.8rem;color:var(--muted);}
+  .degree-hint{display:inline-flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--muted);}
+  .degree-hint svg{color:var(--accent);animation:hint-bob 1.6s ease-in-out infinite;}
+  @keyframes hint-bob{0%,100%{transform:translateX(0);}50%{transform:translateX(5px);}}
+
+  .fan{position:relative;height:500px;}
+  .doc{
+    position:absolute;left:50%;top:50%;width:46%;aspect-ratio:900/1273;
+    border:0;padding:0;margin:0;background:#efe9dc;cursor:zoom-in;border-radius:6px;overflow:hidden;
+    box-shadow:0 2px 0 rgba(255,255,255,0.4) inset, 0 30px 50px -20px rgba(0,0,0,0.7), 0 6px 14px -6px rgba(0,0,0,0.5);
+    transform:translate(-50%,-40%) rotate(var(--r0,0deg)) scale(.9);opacity:0;
+    transition:transform 1s cubic-bezier(.2,.8,.2,1), opacity .6s ease, box-shadow .4s ease;
+    transition-delay:var(--d,0s);
+  }
+  .doc img{width:100%;height:100%;object-fit:cover;display:block;}
+  .doc::after{
+    content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;pointer-events:none;
+    background:linear-gradient(115deg,transparent,rgba(255,255,255,0.45),transparent);transform:skewX(-18deg);
+    animation:doc-shine 7s ease-in-out infinite;animation-delay:var(--sd,0s);
+  }
+  @keyframes doc-shine{0%,70%{left:-80%;}100%{left:150%;}}
+  .doc.d1{--r0:-3deg;--d:.15s;--sd:1s;z-index:1;}
+  .doc.d2{--r0:2deg;--d:0s;--sd:0s;z-index:3;width:50%;aspect-ratio:1000/1465;}
+  .doc.d3{--r0:4deg;--d:.3s;--sd:2s;z-index:2;}
+  .degree.in .doc{opacity:1;}
+  .degree.in .doc.d1{transform:translate(-112%,-47%) rotate(-11deg);}
+  .degree.in .doc.d2{transform:translate(-50%,-52%) rotate(0deg);}
+  .degree.in .doc.d3{transform:translate(12%,-47%) rotate(11deg);}
+  .degree.in .doc:hover,.degree.in .doc:focus-visible{z-index:5;box-shadow:0 40px 70px -24px rgba(0,0,0,0.8), 0 0 0 2px var(--accent);transition-delay:0s;}
+  .degree.in .doc.d1:hover,.degree.in .doc.d1:focus-visible{transform:translate(-112%,-54%) rotate(-5deg) scale(1.08);}
+  .degree.in .doc.d2:hover,.degree.in .doc.d2:focus-visible{transform:translate(-50%,-56%) rotate(0deg) scale(1.06);}
+  .degree.in .doc.d3:hover,.degree.in .doc.d3:focus-visible{transform:translate(12%,-54%) rotate(5deg) scale(1.08);}
+
+  /* Spinning "graduated" seal */
+  .seal{
+    position:absolute;right:4%;bottom:2%;width:118px;height:118px;z-index:6;pointer-events:none;
+    opacity:0;transform:scale(.4) rotate(-40deg);
+    transition:opacity .6s ease .9s, transform .8s cubic-bezier(.3,1.6,.5,1) .9s;
+  }
+  .degree.in .seal{opacity:1;transform:scale(1) rotate(0);}
+  .seal svg.ring{position:absolute;inset:0;width:100%;height:100%;animation:spin-slow 16s linear infinite;}
+  .seal-core{
+    position:absolute;inset:24px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:linear-gradient(135deg, var(--accent), var(--accent-dark));color:var(--ink);
+    box-shadow:0 10px 26px -8px rgba(242,169,59,0.7);font-family:'Outfit',sans-serif;line-height:1;
+  }
+  .seal-core b{font-size:1.2rem;font-weight:800;}
+  .seal-core span{font-size:0.62rem;font-weight:700;letter-spacing:0.08em;margin-top:3px;}
+
+  /* Lightbox */
+  .lightbox{
+    position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:24px;
+    background:rgba(8,6,4,0.86);backdrop-filter:blur(8px);
+    opacity:0;pointer-events:none;transition:opacity .35s ease;
+  }
+  .lightbox.open{opacity:1;pointer-events:auto;}
+  .lightbox img{
+    max-width:min(92vw,760px);max-height:86vh;border-radius:8px;box-shadow:0 40px 90px -20px rgba(0,0,0,0.9);
+    transform:scale(.85) translateY(30px);transition:transform .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .lightbox.open img{transform:none;}
+  .lb-btn{
+    position:absolute;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.08);color:#fff;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .25s ease, transform .25s ease;
+  }
+  .lb-btn:hover{background:var(--accent);color:var(--ink);transform:scale(1.08);}
+  .lb-close{top:20px;right:20px;}
+  .lb-prev{left:20px;top:50%;margin-top:-24px;}
+  .lb-next{right:20px;top:50%;margin-top:-24px;}
+  .lb-caption{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#e9dfcb;font-size:0.9rem;}
+
+  @media (max-width:920px){
+    .degree{grid-template-columns:1fr;padding:36px 22px;}
+    .fan{height:400px;}
+    .seal{width:92px;height:92px;}
+    .seal-core{inset:18px;}
+    .seal-core b{font-size:1rem;}
+  }
+  @media (max-width:520px){
+    .fan{height:300px;}
+    .degree-facts{gap:10px;}
+    .degree-facts div{padding:12px 14px;}
+    .lb-prev,.lb-next{top:auto;bottom:56px;margin-top:0;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .doc,.seal{transition:none;}
+  }
+
   .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
   .cert-card{
     background:var(--cream);color:var(--ink);border-radius:18px;overflow:hidden;
@@ -1175,9 +1281,47 @@
   <div class="section-glow left top" style="background:radial-gradient(circle, rgba(62,207,142,0.22), transparent 70%);"></div>
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>Courses &amp; <span class="hi">Certificates</span></h2>
-      <p>Professional certifications I've completed alongside my degree.</p>
+      <h2>Degree &amp; <span class="hi">Certificates</span></h2>
+      <p>My university degree, plus the professional certifications I've completed alongside it.</p>
     </div>
+    <div class="degree spot reveal" id="degree">
+      <div class="degree-info">
+        <span class="p-label">Applied Science Private University · 2026</span>
+        <h3>Bachelor's Degree in Computer Science</h3>
+        <p>Faculty of Information Technology, in an ABET-accredited program. Graduated in the Summer Semester of 2025/2026.</p>
+        <div class="degree-facts">
+          <div><b>B.Sc.</b><span>Computer Science</span></div>
+          <div><b>Good</b><span>General grade</span></div>
+          <div><b>2026</b><span>Graduation year</span></div>
+          <div><b>ABET</b><span>Accredited program</span></div>
+        </div>
+        <span class="degree-hint">Tap a document to view it full size
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+      <div class="fan">
+        <button type="button" class="doc d1" data-index="1" aria-label="View the English degree certificate">
+          <img src="degree-certificate-en.jpg" alt="ASU degree certificate in English" loading="lazy">
+        </button>
+        <button type="button" class="doc d2" data-index="0" aria-label="View the bachelor's diploma">
+          <img src="degree-diploma.jpg" alt="ASU bachelor's diploma in Computer Science" loading="lazy">
+        </button>
+        <button type="button" class="doc d3" data-index="2" aria-label="View the Arabic degree certificate">
+          <img src="degree-certificate-ar.jpg" alt="ASU degree certificate in Arabic" loading="lazy">
+        </button>
+        <div class="seal" aria-hidden="true">
+          <svg class="ring" viewBox="0 0 120 120">
+            <defs><path id="sealPath" d="M60,60 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/></defs>
+            <circle cx="60" cy="60" r="57" fill="var(--bg)" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 4"/>
+            <text font-family="Outfit, sans-serif" font-size="11.5" font-weight="700" letter-spacing="2.6" fill="var(--heading)">
+              <textPath href="#sealPath">GRADUATED · COMPUTER SCIENCE ·</textPath>
+            </text>
+          </svg>
+          <div class="seal-core"><b>B.Sc.</b><span>2026</span></div>
+        </div>
+      </div>
+    </div>
+
     <div class="cert-grid">
       <div class="cert-card reveal zoom">
         <a class="cert-thumb" href="https://www.credly.com/go/kgzF9cMP" target="_blank" rel="noopener">
@@ -1305,6 +1449,14 @@
   </div>
 </section>
 </main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Certificate viewer" aria-hidden="true">
+  <img id="lbImg" src="" alt="">
+  <button type="button" class="lb-btn lb-close" id="lbClose" aria-label="Close">✕</button>
+  <button type="button" class="lb-btn lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <button type="button" class="lb-btn lb-next" id="lbNext" aria-label="Next">›</button>
+  <div class="lb-caption" id="lbCaption"></div>
+</div>
 
 <script>
   const header = document.getElementById('siteHeader');
@@ -1586,6 +1738,41 @@
       document.hidden ? stop() : (hero.getBoundingClientRect().bottom > 0 && start());
     });
   }
+
+  // Degree documents: click to open full size, arrows/keys to browse
+  const docs = [...document.querySelectorAll('.doc')].sort((a, b) => a.dataset.index - b.dataset.index);
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCaption = document.getElementById('lbCaption');
+  let lbIndex = 0, lbOpener = null;
+  function showDoc(i){
+    lbIndex = (i + docs.length) % docs.length;
+    const img = docs[lbIndex].querySelector('img');
+    lbImg.src = img.src; lbImg.alt = img.alt;
+    lbCaption.textContent = img.alt + '  (' + (lbIndex + 1) + ' / ' + docs.length + ')';
+  }
+  function openLb(i, opener){
+    lbOpener = opener; showDoc(i);
+    lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('lbClose').focus();
+  }
+  function closeLb(){
+    lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if(lbOpener) lbOpener.focus();
+  }
+  docs.forEach((d, i) => d.addEventListener('click', () => openLb(i, d)));
+  document.getElementById('lbClose').addEventListener('click', closeLb);
+  document.getElementById('lbPrev').addEventListener('click', () => showDoc(lbIndex - 1));
+  document.getElementById('lbNext').addEventListener('click', () => showDoc(lbIndex + 1));
+  lb.addEventListener('click', (e) => { if(e.target === lb) closeLb(); });
+  document.addEventListener('keydown', (e) => {
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') closeLb();
+    if(e.key === 'ArrowLeft') showDoc(lbIndex - 1);
+    if(e.key === 'ArrowRight') showDoc(lbIndex + 1);
+  });
 </script>
 </body>
 </html>
