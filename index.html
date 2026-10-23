@@ -42,16 +42,16 @@
     --cream-2:#dde5f0;
     --paper:#f8fafc;
     --ink:#0f172a;
-    --on-accent:#ffffff;
+    --on-accent:#0b1220;
     --text:#e2e8f0;
     --text-soft:#cbd5e1;
     --heading:#f8fafc;
     --muted:#94a3b8;
     --muted-2:#64748b;
-    --accent:#a855f7;
-    --accent-dark:#9333ea;
-    --btn:#7c3aed;
-    --btn-hover:#6d28d9;
+    --accent:#fb923c;
+    --accent-dark:#f97316;
+    --btn:#fb923c;
+    --btn-hover:#f97316;
     --line:rgba(226,232,240,0.10);
     --tag-bg:rgba(226,232,240,0.05);
     --radius:14px;
@@ -66,8 +66,8 @@
     --text-soft:#334155;
     --heading:#0b1220;
     --muted:#64748b;
-    --accent:#7c3aed;
-    --accent-dark:#6d28d9;
+    --accent:#c2410c;
+    --accent-dark:#9a3412;
     --line:rgba(15,23,42,0.12);
     --tag-bg:rgba(15,23,42,0.04);
   }
@@ -275,7 +275,13 @@
   .stat span{font-size:0.85rem;color:var(--muted);}
 
   .hero-visual{position:relative;display:flex;justify-content:center;}
-  .hero-photo{width:100%;max-width:360px;height:auto;}
+  .hero-tilt{
+    width:100%;max-width:360px;
+    transform:perspective(900px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));
+    transition:transform .4s ease;
+  }
+  .hero-photo{width:100%;height:auto;animation:photo-float 6s ease-in-out infinite;}
+  @keyframes photo-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
   .avatar-fallback{
     width:100%;height:100%;display:flex;align-items:center;justify-content:center;
     font-family:'Outfit',sans-serif;font-weight:800;font-size:4.5rem;color:var(--accent);
@@ -346,17 +352,36 @@
   .sub-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);}
   .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;grid-auto-rows:1fr;}
   .project{
+    perspective:1200px;border-radius:18px;outline-offset:4px;
+    transition:transform .3s ease, opacity .6s ease;
+  }
+  .project:hover{transform:translateY(-6px);}
+  .project:focus-visible{outline:2px solid var(--accent);}
+  .project-inner{
+    display:grid;height:100%;
+    transform-style:preserve-3d;
+    transition:transform .7s cubic-bezier(.2,.7,.2,1);
+  }
+  .project.is-flipped .project-inner,
+  .project:focus-visible .project-inner{transform:rotateY(180deg);}
+  @media (hover:hover){
+    .project:hover .project-inner{transform:rotateY(180deg);}
+  }
+  .project-face{
+    grid-area:1/1;
+    -webkit-backface-visibility:hidden;backface-visibility:hidden;
     display:flex;flex-direction:column;
     background:var(--bg-soft);border:1px solid var(--line);border-radius:18px;overflow:hidden;
-    transition:transform .3s ease, border-color .3s ease;
+    transition:border-color .3s ease;
   }
-  .project:hover{transform:translateY(-6px);border-color:var(--accent);}
+  .project:hover .project-face{border-color:var(--accent);}
+  .project-back{transform:rotateY(180deg);gap:14px;padding:26px;}
   .project-thumb{aspect-ratio:16/10;overflow:hidden;background:#0a1020;border-bottom:1px solid var(--line);}
-  .project-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s ease;}
-  .project:hover .project-thumb img{transform:scale(1.05);}
-  .project-body{flex:1;display:flex;flex-direction:column;gap:14px;padding:24px 26px 26px;}
-  .project-body h3{font-size:1.2rem;}
-  .project-body p{flex:1;min-height:4.8em;color:var(--muted);font-size:0.92rem;}
+  .project-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+  .project-title{display:flex;flex-direction:column;gap:6px;padding:20px 26px 24px;}
+  .project-title h3,.project-back h3{font-size:1.2rem;}
+  .project-title span{font-size:0.8rem;color:var(--accent);font-weight:600;}
+  .project-back p{flex:1;color:var(--muted);font-size:0.92rem;}
   .tag-row{display:flex;flex-wrap:wrap;gap:9px;}
   .tag{
     font-size:0.78rem;padding:6px 13px;border-radius:999px;
@@ -583,7 +608,9 @@
     </div>
 
     <div class="hero-visual">
-      <img src="ahmad-hero.webp" alt="Ahmad Alshakhshir" class="hero-photo" id="avatarImg" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'avatar-fallback', textContent:'AA'}))">
+      <div class="hero-tilt">
+        <img src="ahmad-hero.webp" alt="Ahmad Alshakhshir" class="hero-photo" id="avatarImg" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'avatar-fallback', textContent:'AA'}))">
+      </div>
     </div>
   </div>
 </section>
@@ -735,31 +762,55 @@
       <div class="project-group">
         <div class="sub-head reveal"><h3>Mobile apps</h3><span class="line"></span></div>
         <div class="project-grid">
-          <article class="project reveal">
-            <div class="project-thumb"><img src="project-ableplus.jpg" alt="Able+ app login screen" loading="lazy"></div>
-            <div class="project-body">
-              <h3>Able+</h3>
-              <p>A Flutter app that helps people in Jordan find accessible services, charities, tutors and community support.</p>
-              <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Supabase</span><span class="tag">Graduation project</span></div>
-              <div class="project-links"><a href="https://github.com/aboodGR/able_plus_final" target="_blank" rel="noopener">GitHub</a></div>
+          <article class="project reveal" tabindex="0">
+            <div class="project-inner">
+              <div class="project-face project-front">
+                <div class="project-thumb"><img src="project-ableplus.jpg" alt="Able+ app login screen" loading="lazy"></div>
+                <div class="project-title">
+                  <h3>Able+</h3>
+                  <span>Hover or tap for details</span>
+                </div>
+              </div>
+              <div class="project-face project-back">
+                <h3>Able+</h3>
+                <p>A Flutter app that helps people in Jordan find accessible services, charities, tutors and community support.</p>
+                <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Supabase</span><span class="tag">Graduation project</span></div>
+                <div class="project-links"><a href="https://github.com/aboodGR/able_plus_final" target="_blank" rel="noopener">GitHub</a></div>
+              </div>
             </div>
           </article>
-          <article class="project reveal">
-            <div class="project-thumb"><img src="project-gotrip.jpg" alt="GoTrip app screenshot" loading="lazy"></div>
-            <div class="project-body">
-              <h3>GoTrip</h3>
-              <p>A travel deals app to browse destinations, sign up and log in. I designed the screens and navigation.</p>
-              <div class="tag-row"><span class="tag">Travel</span><span class="tag">UX Design</span></div>
-              <div class="project-links"></div>
+          <article class="project reveal" tabindex="0">
+            <div class="project-inner">
+              <div class="project-face project-front">
+                <div class="project-thumb"><img src="project-gotrip.jpg" alt="GoTrip app screenshot" loading="lazy"></div>
+                <div class="project-title">
+                  <h3>GoTrip</h3>
+                  <span>Hover or tap for details</span>
+                </div>
+              </div>
+              <div class="project-face project-back">
+                <h3>GoTrip</h3>
+                <p>A travel deals app to browse destinations, sign up and log in. I designed the screens and navigation.</p>
+                <div class="tag-row"><span class="tag">Travel</span><span class="tag">UX Design</span></div>
+                <div class="project-links"></div>
+              </div>
             </div>
           </article>
-          <article class="project reveal">
-            <div class="project-thumb"><img src="project-newsapp.jpg" alt="News app screenshot" loading="lazy"></div>
-            <div class="project-body">
-              <h3>News App</h3>
-              <p>Live headlines from a REST API, with articles cached for offline reading.</p>
-              <div class="tag-row"><span class="tag">Flutter</span><span class="tag">REST API</span><span class="tag">Caching</span></div>
-              <div class="project-links"><a href="https://github.com/alshaksherahmad857-commits/newsproject" target="_blank" rel="noopener">GitHub</a></div>
+          <article class="project reveal" tabindex="0">
+            <div class="project-inner">
+              <div class="project-face project-front">
+                <div class="project-thumb"><img src="project-newsapp.jpg" alt="News app screenshot" loading="lazy"></div>
+                <div class="project-title">
+                  <h3>News App</h3>
+                  <span>Hover or tap for details</span>
+                </div>
+              </div>
+              <div class="project-face project-back">
+                <h3>News App</h3>
+                <p>Live headlines from a REST API, with articles cached for offline reading.</p>
+                <div class="tag-row"><span class="tag">Flutter</span><span class="tag">REST API</span><span class="tag">Caching</span></div>
+                <div class="project-links"><a href="https://github.com/alshaksherahmad857-commits/newsproject" target="_blank" rel="noopener">GitHub</a></div>
+              </div>
             </div>
           </article>
         </div>
@@ -767,49 +818,89 @@
       <div class="project-group">
         <div class="sub-head reveal"><h3>Websites</h3><span class="line"></span></div>
         <div class="project-grid">
-          <article class="project reveal">
-            <div class="project-thumb"><img src="shot-rafaqtech-desktop.jpg" alt="Rafaq Tec website on a laptop" loading="lazy"></div>
-            <div class="project-body">
-              <h3>Rafaq Tec</h3>
-              <p>A bilingual website for my software studio, with an AI chat assistant and a working contact form.</p>
-              <div class="tag-row"><span class="tag">Cloudflare Workers</span><span class="tag">D1</span><span class="tag">SEO</span></div>
-              <div class="project-links"><a href="https://rafaqtech.com/" target="_blank" rel="noopener">Visit site</a></div>
+          <article class="project reveal" tabindex="0">
+            <div class="project-inner">
+              <div class="project-face project-front">
+                <div class="project-thumb"><img src="shot-rafaqtech-desktop.jpg" alt="Rafaq Tec website on a laptop" loading="lazy"></div>
+                <div class="project-title">
+                  <h3>Rafaq Tec</h3>
+                  <span>Hover or tap for details</span>
+                </div>
+              </div>
+              <div class="project-face project-back">
+                <h3>Rafaq Tec</h3>
+                <p>A bilingual website for my software studio, with an AI chat assistant and a working contact form.</p>
+                <div class="tag-row"><span class="tag">Cloudflare Workers</span><span class="tag">D1</span><span class="tag">SEO</span></div>
+                <div class="project-links"><a href="https://rafaqtech.com/" target="_blank" rel="noopener">Visit site</a></div>
+              </div>
             </div>
           </article>
-          <article class="project reveal">
-            <div class="project-thumb"><img src="shot-elderlymed-desktop.jpg" alt="ElderlyMed online store on a laptop" loading="lazy"></div>
-            <div class="project-body">
-              <h3>ElderlyMed Store</h3>
-              <p>An online store for a medical devices shop in Jordan, with orders, search and an admin panel.</p>
-              <div class="tag-row"><span class="tag">Laravel</span><span class="tag">MySQL</span><span class="tag">Linux VPS</span></div>
-              <div class="project-links"><a href="https://elderlymedjo.com/" target="_blank" rel="noopener">Visit site</a></div>
+          <article class="project reveal" tabindex="0">
+            <div class="project-inner">
+              <div class="project-face project-front">
+                <div class="project-thumb"><img src="shot-elderlymed-desktop.jpg" alt="ElderlyMed online store on a laptop" loading="lazy"></div>
+                <div class="project-title">
+                  <h3>ElderlyMed Store</h3>
+                  <span>Hover or tap for details</span>
+                </div>
+              </div>
+              <div class="project-face project-back">
+                <h3>ElderlyMed Store</h3>
+                <p>An online store for a medical devices shop in Jordan, with orders, search and an admin panel.</p>
+                <div class="tag-row"><span class="tag">Laravel</span><span class="tag">MySQL</span><span class="tag">Linux VPS</span></div>
+                <div class="project-links"><a href="https://elderlymedjo.com/" target="_blank" rel="noopener">Visit site</a></div>
+              </div>
             </div>
           </article>
-          <article class="project reveal">
-            <div class="project-thumb"><img src="project-travel.jpg" alt="Travel company website screenshot" loading="lazy"></div>
-            <div class="project-body">
-              <h3>Travel Company Website</h3>
-              <p>Service and destination pages with a database behind them and a smoother user experience.</p>
-              <div class="tag-row"><span class="tag">Full-Stack</span><span class="tag">UX</span></div>
-              <div class="project-links"></div>
+          <article class="project reveal" tabindex="0">
+            <div class="project-inner">
+              <div class="project-face project-front">
+                <div class="project-thumb"><img src="project-travel.jpg" alt="Travel company website screenshot" loading="lazy"></div>
+                <div class="project-title">
+                  <h3>Travel Company Website</h3>
+                  <span>Hover or tap for details</span>
+                </div>
+              </div>
+              <div class="project-face project-back">
+                <h3>Travel Company Website</h3>
+                <p>Service and destination pages with a database behind them and a smoother user experience.</p>
+                <div class="tag-row"><span class="tag">Full-Stack</span><span class="tag">UX</span></div>
+                <div class="project-links"></div>
+              </div>
             </div>
           </article>
-          <article class="project reveal">
-            <div class="project-thumb"><img src="project-alrashed.jpg" alt="Al-Rashid Renewable Energy website screenshot" loading="lazy"></div>
-            <div class="project-body">
-              <h3>Al-Rashid Renewable Energy</h3>
-              <p>A bilingual marketing website for a renewable energy company, on its own custom domain.</p>
-              <div class="tag-row"><span class="tag">HTML &amp; CSS</span><span class="tag">Deployment</span></div>
-              <div class="project-links"><a href="https://github.com/alshaksherahmad857-commits/alrashed.com" target="_blank" rel="noopener">GitHub</a></div>
+          <article class="project reveal" tabindex="0">
+            <div class="project-inner">
+              <div class="project-face project-front">
+                <div class="project-thumb"><img src="project-alrashed.jpg" alt="Al-Rashid Renewable Energy website screenshot" loading="lazy"></div>
+                <div class="project-title">
+                  <h3>Al-Rashid Renewable Energy</h3>
+                  <span>Hover or tap for details</span>
+                </div>
+              </div>
+              <div class="project-face project-back">
+                <h3>Al-Rashid Renewable Energy</h3>
+                <p>A bilingual marketing website for a renewable energy company, on its own custom domain.</p>
+                <div class="tag-row"><span class="tag">HTML &amp; CSS</span><span class="tag">Deployment</span></div>
+                <div class="project-links"><a href="https://github.com/alshaksherahmad857-commits/alrashed.com" target="_blank" rel="noopener">GitHub</a></div>
+              </div>
             </div>
           </article>
-          <article class="project reveal">
-            <div class="project-thumb"><img src="project-admin-dashboard.jpg" alt="Admin dashboard screenshot" loading="lazy"></div>
-            <div class="project-body">
-              <h3>Admin Dashboard</h3>
-              <p>A web dashboard to manage users and requests, with a companion Flutter app.</p>
-              <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Dashboard</span><span class="tag">Clean Architecture</span></div>
-              <div class="project-links"><a href="https://github.com/alshaksherahmad857-commits/projectAdmin" target="_blank" rel="noopener">GitHub</a></div>
+          <article class="project reveal" tabindex="0">
+            <div class="project-inner">
+              <div class="project-face project-front">
+                <div class="project-thumb"><img src="project-admin-dashboard.jpg" alt="Admin dashboard screenshot" loading="lazy"></div>
+                <div class="project-title">
+                  <h3>Admin Dashboard</h3>
+                  <span>Hover or tap for details</span>
+                </div>
+              </div>
+              <div class="project-face project-back">
+                <h3>Admin Dashboard</h3>
+                <p>A web dashboard to manage users and requests, with a companion Flutter app.</p>
+                <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Dashboard</span><span class="tag">Clean Architecture</span></div>
+                <div class="project-links"><a href="https://github.com/alshaksherahmad857-commits/projectAdmin" target="_blank" rel="noopener">GitHub</a></div>
+              </div>
             </div>
           </article>
         </div>
@@ -1058,6 +1149,40 @@
     if(e.key === 'ArrowLeft') showDoc(lbIndex - 1);
     if(e.key === 'ArrowRight') showDoc(lbIndex + 1);
   });
+  // Touch screens flip a project card on tap; links on the back still open.
+  if (window.matchMedia('(hover: none)').matches) {
+    document.querySelectorAll('.project').forEach(card => {
+      card.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        card.classList.toggle('is-flipped');
+      });
+    });
+  }
+  // Keyboard users can flip a card with Enter or Space.
+  document.querySelectorAll('.project').forEach(card => {
+    card.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      card.classList.toggle('is-flipped');
+    });
+  });
+
+  // Hero photo tilts toward the pointer on devices with a mouse.
+  const heroTilt = document.querySelector('.hero-tilt');
+  const heroVisual = document.querySelector('.hero-visual');
+  if (heroTilt && heroVisual && window.matchMedia('(hover: hover)').matches) {
+    heroVisual.addEventListener('pointermove', e => {
+      const r = heroTilt.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      heroTilt.style.setProperty('--tilt-x', (-y * 12).toFixed(2) + 'deg');
+      heroTilt.style.setProperty('--tilt-y', (x * 12).toFixed(2) + 'deg');
+    });
+    heroVisual.addEventListener('pointerleave', () => {
+      heroTilt.style.setProperty('--tilt-x', '0deg');
+      heroTilt.style.setProperty('--tilt-y', '0deg');
+    });
+  }
 </script>
 </body>
 </html>
