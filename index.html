@@ -32,7 +32,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0b1220;
@@ -175,6 +175,21 @@
   .theme-toggle .icon-sun{display:none;}
   :root[data-theme="light"] .theme-toggle .icon-moon{display:none;}
   :root[data-theme="light"] .theme-toggle .icon-sun{display:block;}
+  .lang-toggle{
+    height:34px;min-width:44px;padding:0 12px;border-radius:999px;cursor:pointer;
+    background:var(--bg-soft);border:1px solid var(--line);color:var(--heading);
+    font:inherit;font-size:0.8rem;font-weight:700;letter-spacing:0.04em;
+    transition:border-color .25s ease;
+  }
+  .lang-toggle:hover{border-color:var(--accent);}
+  html[lang="ar"] *{font-family:'Tajawal',sans-serif !important;}
+  html[dir="rtl"] .timeline{border-left:0;border-right:2px solid var(--line);padding-left:0;padding-right:30px;}
+  html[dir="rtl"] .t-item::before{left:auto;right:-38px;}
+  html[dir="rtl"] .about-stat{padding-left:0;padding-right:16px;border-left:0;border-right:1px solid var(--line);}
+  @media (max-width:1180px){
+    html[dir="rtl"] .nav-links{right:auto;left:0;transform:translateX(-100%);border-left:0;border-right:1px solid var(--line);}
+    html[dir="rtl"] .nav-links.open{transform:translateX(0);}
+  }
   .hire-btn{
     display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
     padding:12px 22px;border-radius:14px;
@@ -221,28 +236,11 @@
   }
 
   .hero-text{display:flex;flex-direction:column;gap:26px;}
-  .hero-chips{position:absolute;top:0;display:flex;flex-direction:column;gap:16px;z-index:2;}
-  .hero-chips-left{left:0;top:18%;}
-  .hero-chips-right{right:0;top:40%;align-items:flex-end;}
-  .hero-chip{
-    display:flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;
-    background:var(--bg-soft);border:1px solid var(--line);border-radius:999px;
-    box-shadow:0 14px 28px -14px rgba(0,0,0,0.6);
-    font-family:'Outfit',sans-serif;font-weight:600;font-size:0.95rem;color:var(--heading);white-space:nowrap;
-  }
-  .hero-chip .service-ic{width:38px;height:38px;border-radius:50%;}
-  .hero-chips-right .hero-chip{flex-direction:row-reverse;padding:8px 8px 8px 16px;}
-  @media (max-width:920px){
-    .hero-visual{max-width:460px;flex-wrap:wrap;}
-    .hero-chips{position:static;width:100%;flex-direction:row;flex-wrap:wrap;justify-content:center;}
-    .hero-chips-right{align-items:center;}
-    .hero-chips-right .hero-chip{flex-direction:row;padding:8px 16px 8px 8px;}
-  }
   .hero h1{
     font-size:clamp(2.6rem, 5vw, 3.8rem);
     font-weight:700;
   }
-  .hero h1 .name-accent{color:var(--accent);}
+  .hero h1 .name-accent{color:inherit;}
   .role-line{
     font-size:clamp(1.15rem,2vw,1.4rem);
     color:var(--text-soft);
@@ -641,6 +639,7 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-right">
+      <button type="button" class="lang-toggle" id="langToggle" aria-label="Switch language">AR</button>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
         <span class="toggle-knob">
           <svg class="icon-moon" width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -670,14 +669,6 @@
     <div class="hero-visual">
       <div class="hero-tilt">
         <img src="ahmad-hero.webp" alt="Ahmad Alshakhshir" class="hero-photo" id="avatarImg" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'avatar-fallback', textContent:'AA'}))">
-      </div>
-      <div class="hero-chips hero-chips-left">
-        <div class="hero-chip"><span class="service-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="6" y="2" width="12" height="20" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span>Mobile apps</span></div>
-        <div class="hero-chip"><span class="service-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span>Websites</span></div>
-      </div>
-      <div class="hero-chips hero-chips-right">
-        <div class="hero-chip"><span class="service-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="1.8"/></svg></span><span>Backend &amp; APIs</span></div>
-        <div class="hero-chip"><span class="service-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 100 18c.9 0 1.5-.7 1.5-1.5 0-.4-.15-.75-.4-1-.25-.27-.4-.62-.4-1 0-.83.67-1.5 1.5-1.5H16a5 5 0 005-5c0-4.4-4-8-9-8z" stroke="currentColor" stroke-width="1.8"/><circle cx="7.5" cy="11.5" r="1.2" fill="currentColor"/><circle cx="10.5" cy="7.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="8" r="1.2" fill="currentColor"/></svg></span><span>UI/UX design</span></div>
       </div>
     </div>
   </div>
@@ -1268,6 +1259,128 @@
       });
     });
   }
+  // English / Arabic switch. Each text node is matched by its English wording.
+  const AR_TEXT = {
+    'Skills': 'المهارات',
+    'Certification': 'الشهادات',
+    'Projects': 'المشاريع',
+    'Contact': 'تواصل',
+    'Contact Me': 'تواصل معي',
+    'Ahmad Alshakhshir': 'أحمد الشخشير',
+    'Ahmad Alshakhshir.': 'أحمد الشخشير.',
+    'Flutter Developer': 'مطوّر Flutter',
+    'Skip to content': 'تخطي إلى المحتوى',
+    "I'm": 'أنا',
+    'Flutter & Full-Stack Developer': 'مطوّر Flutter و Full-Stack',
+    'About me': 'من أنا',
+    'A Flutter developer who builds': 'مطوّر Flutter يبني',
+    'apps people actually use': 'تطبيقات يستخدمها الناس فعلاً',
+    'I build Flutter apps and websites for real clients in Jordan, from accessibility platforms to online stores.': 'أبني تطبيقات Flutter ومواقع لعملاء حقيقيين في الأردن، من منصات إمكانية الوصول إلى المتاجر الإلكترونية.',
+    'I write clean, maintainable code that is ready to grow with your business.': 'أكتب كودًا نظيفًا وسهل الصيانة، وجاهزًا للنمو مع عملك.',
+    'Certifications': 'شهادات',
+    'Live client websites': 'مواقع عملاء تعمل حاليًا',
+    'See my projects': 'شاهد مشاريعي',
+    'The tools and the skills behind my projects.': 'الأدوات والمهارات التي بنيت بها مشاريعي.',
+    'Mobile': 'الجوال',
+    'Backend & Data': 'الخلفية والبيانات',
+    'Programming & Web': 'البرمجة والويب',
+    'Design & Tools': 'التصميم والأدوات',
+    'Also': 'أيضًا',
+    'Clean Architecture': 'العمارة النظيفة',
+    'REST APIs (Dio)': 'واجهات REST (Dio)',
+    'Offline Caching': 'التخزين دون اتصال',
+    'Automated Testing': 'الاختبارات الآلية',
+    'Responsive UI': 'واجهات متجاوبة',
+    'UI/UX Design': 'تصميم UI/UX',
+    'Data Analysis': 'تحليل البيانات',
+    'Mobile apps and websites I have built.': 'تطبيقات جوال ومواقع قمت ببنائها.',
+    'All': 'الكل',
+    'Mobile Apps': 'تطبيقات الجوال',
+    'Mobile apps': 'تطبيقات الجوال',
+    'Websites': 'المواقع',
+    'Hover or tap for details': 'مرّر المؤشر أو اضغط للتفاصيل',
+    'Visit site': 'زيارة الموقع',
+    'A Flutter app that helps people in Jordan find accessible services, charities, tutors and community support.': 'تطبيق Flutter يساعد الناس في الأردن على إيجاد خدمات ميسّرة وجمعيات ومعلّمين ودعم مجتمعي.',
+    'A travel deals app to browse destinations, sign up and log in. I designed the screens and navigation.': 'تطبيق عروض سفر لتصفح الوجهات والتسجيل وتسجيل الدخول. صمّمتُ الشاشات والتنقل فيه.',
+    'Live headlines from a REST API, with articles cached for offline reading.': 'أخبار مباشرة من واجهة REST، مع حفظ المقالات للقراءة دون اتصال.',
+    'A bilingual website for my software studio, with an AI chat assistant and a working contact form.': 'موقع ثنائي اللغة لاستوديو البرمجيات الخاص بي، مع مساعد دردشة بالذكاء الاصطناعي ونموذج تواصل يعمل.',
+    'An online store for a medical devices shop in Jordan, with orders, search and an admin panel.': 'متجر إلكتروني لمحل أجهزة ومستلزمات طبية في الأردن، مع الطلبات والبحث ولوحة إدارة.',
+    'Service and destination pages with a database behind them and a smoother user experience.': 'صفحات للخدمات والوجهات مدعومة بقاعدة بيانات، وتجربة مستخدم أسلس.',
+    'A bilingual marketing website for a renewable energy company, on its own custom domain.': 'موقع تسويقي ثنائي اللغة لشركة طاقة متجددة، على نطاقه الخاص.',
+    'A web dashboard to manage users and requests, with a companion Flutter app.': 'لوحة تحكم ويب لإدارة المستخدمين والطلبات، مع تطبيق Flutter مرافق.',
+    'Education': 'التعليم',
+    'Applied Science Private University · 2026': 'جامعة العلوم التطبيقية الخاصة · 2026',
+    "Bachelor's Degree in Computer Science": 'بكالوريوس في علوم الحاسوب',
+    'Faculty of Information Technology, in an ABET-accredited program. Graduated in the Summer Semester of 2025/2026.': 'كلية تكنولوجيا المعلومات، ضمن برنامج معتمد من ABET. تخرجت في الفصل الصيفي 2025/2026.',
+    'Computer Science': 'علوم الحاسوب',
+    'Good': 'جيد',
+    'General grade': 'التقدير العام',
+    'Graduation year': 'سنة التخرج',
+    'Accredited program': 'برنامج معتمد',
+    'Tap a document to view it full size': 'اضغط على أي وثيقة لعرضها بالحجم الكامل',
+    'Academic & Training Path': 'المسار الأكاديمي والتدريبي',
+    'Jul - Sep 2026': 'يوليو - سبتمبر 2026',
+    'Flutter Development Trainee': 'متدرب تطوير Flutter',
+    'REST API integration with Dio': 'دمج واجهات REST باستخدام Dio',
+    'Offline and local storage strategies': 'استراتيجيات التخزين المحلي دون اتصال',
+    'Firebase services': 'خدمات Firebase',
+    'Performance profiling': 'تحليل أداء التطبيق',
+    'Field Training, Kayan HR': 'تدريب ميداني، Kayan HR',
+    'Oct 24, 2026 - Present': '24 أكتوبر 2026 - حتى الآن',
+    'Full Stack Development, Coderz': 'تطوير الويب الشامل، Coderz',
+    'Full-Stack Web Development Bootcamp: 160 hours over 14 weeks. Covers HTML and CSS, C# with ASP.NET Core and SQL Server, JavaScript with React, Git and GitHub, and AI-assisted coding. Ends with a capstone project deployed on Azure and Vercel.': 'معسكر تطوير الويب الشامل: 160 ساعة على مدى 14 أسبوعًا. يغطي HTML وCSS، وC# مع ASP.NET Core وSQL Server، وJavaScript مع React، وGit وGitHub، والبرمجة بمساعدة الذكاء الاصطناعي. ينتهي بمشروع تخرج منشور على Azure وVercel.',
+    "Let's work together": 'لنعمل معًا',
+    'Send me a message any time, I will reply as soon as I can.': 'راسلني في أي وقت، وسأرد في أقرب وقت ممكن.',
+    'Download CV': 'تحميل السيرة الذاتية',
+    '© 2026 Ahmad Alshakhshir. All Rights Reserved.': '© 2026 أحمد الشخشير. جميع الحقوق محفوظة.',
+  };
+  const AR_ATTR = {
+    'Toggle light/dark theme': 'تبديل الوضع الفاتح والداكن',
+    'Toggle menu': 'فتح القائمة',
+    'Email': 'البريد الإلكتروني',
+    'WhatsApp': 'واتساب',
+    'Filter projects': 'تصفية المشاريع',
+    'Certificate viewer': 'عارض الشهادات',
+    'Close': 'إغلاق',
+    'Previous': 'السابق',
+    'Next': 'التالي',
+  };
+
+  const langToggle = document.getElementById('langToggle');
+  const textNodes = [];
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+    if (!node.parentElement || node.parentElement.closest('script, style, #langToggle')) continue;
+    const key = node.nodeValue.replace(/\s+/g, ' ').trim();
+    if (key) textNodes.push({ node, en: node.nodeValue, key });
+  }
+  const attrNodes = [...document.querySelectorAll('[aria-label]')].map(el => ({ el, en: el.getAttribute('aria-label') }));
+
+  function setLang(lang) {
+    const ar = lang === 'ar';
+    document.documentElement.lang = ar ? 'ar' : 'en';
+    document.documentElement.dir = ar ? 'rtl' : 'ltr';
+    textNodes.forEach(t => {
+      const tr = ar ? AR_TEXT[t.key] : undefined;
+      if (!tr) { t.node.nodeValue = t.en; return; }
+      const lead = t.en.match(/^\s*/)[0];
+      const trail = t.en.match(/\s*$/)[0];
+      t.node.nodeValue = lead + tr + trail;
+    });
+    attrNodes.forEach(a => {
+      const tr = ar ? AR_ATTR[a.en] : undefined;
+      a.el.setAttribute('aria-label', tr || a.en);
+    });
+    langToggle.textContent = ar ? 'EN' : 'AR';
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+  }
+
+  langToggle.addEventListener('click', () => {
+    setLang(document.documentElement.lang === 'ar' ? 'en' : 'ar');
+  });
+  let savedLang = 'en';
+  try { savedLang = localStorage.getItem('lang') || 'en'; } catch (e) {}
+  if (savedLang === 'ar') setLang('ar');
 </script>
 </body>
 </html>
