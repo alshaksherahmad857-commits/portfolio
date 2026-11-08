@@ -202,20 +202,6 @@
     background:var(--bg-soft);color:var(--text-soft);font-size:0.85rem;font-weight:600;
   }
   .open-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(94,234,212,0.18);}
-  .side-dots{
-    position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:90;
-    display:flex;flex-direction:column;align-items:flex-end;gap:14px;
-  }
-  .side-dots a{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:0.8rem;}
-  .side-dots .label{opacity:0;transform:translateX(6px);transition:opacity .25s ease, transform .25s ease;white-space:nowrap;}
-  .side-dots a:hover .label,.side-dots a.active .label{opacity:1;transform:none;}
-  .side-dots a i{
-    width:8px;height:8px;border-radius:50%;display:block;
-    background:transparent;border:1px solid var(--muted);
-    transition:background .25s ease, border-color .25s ease;
-  }
-  .side-dots a.active i,.side-dots a:hover i{background:var(--accent);border-color:var(--accent);}
-  @media (max-width:1180px){.side-dots{display:none;}}
   .hire-btn{
     display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
     padding:12px 22px;border-radius:14px;
@@ -679,14 +665,6 @@
   <div class="nav-overlay" id="navOverlay"></div>
 </header>
 
-<nav class="side-dots" aria-label="Sections">
-  <a href="#home"><span class="label">Home</span><i></i></a>
-  <a href="#about"><span class="label">About</span><i></i></a>
-  <a href="#skills"><span class="label">Skills</span><i></i></a>
-  <a href="#projects"><span class="label">Projects</span><i></i></a>
-  <a href="#certificates"><span class="label">Certification</span><i></i></a>
-  <a href="#contact"><span class="label">Contact</span><i></i></a>
-</nav>
 <main id="main">
 <section class="hero" id="home">
   <div class="wrap hero-grid">
@@ -1306,8 +1284,6 @@
     'Ahmad Alshakhshir.': 'أحمد الشخشير.',
     'Flutter Developer': 'مطوّر Flutter',
     'Full Stack Development': 'تطوير الويب الشامل',
-    'Home': 'الرئيسية',
-    'About': 'من أنا',
     'Open to full-time & freelance': 'متاح للعمل بدوام كامل وعن بُعد',
     'Skip to content': 'تخطي إلى المحتوى',
     "I'm": 'أنا',
@@ -1421,19 +1397,6 @@
   let savedLang = 'en';
   try { savedLang = localStorage.getItem('lang') || 'en'; } catch (e) {}
   if (savedLang === 'ar') setLang('ar');
-  // Side dots: highlight the section that is in view.
-  const dotLinks = [...document.querySelectorAll('.side-dots a')];
-  function updateDots() {
-    const y = window.scrollY + window.innerHeight * 0.4;
-    let current = null;
-    dotLinks.forEach(a => {
-      const sec = document.querySelector(a.getAttribute('href'));
-      if (sec && sec.offsetTop <= y) current = a;
-    });
-    dotLinks.forEach(a => a.classList.toggle('active', a === current));
-  }
-  window.addEventListener('scroll', updateDots, { passive: true });
-  updateDots();
 </script>
 </body>
 </html>
